@@ -6,3 +6,9 @@ class RoomSerializer(serializers.ModelSerializer):
         model = Room
         # Instead of mentioning all the fields (one by one) in Meta class, you can simply put fields = '__all__'
         fields = ('id', 'code', 'host', 'guest_can_pause', 'votes_to_skip', 'created_at')
+
+
+class CreateRoomSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Room
+        fields = ('guest_can_pause', 'votes_to_skip')
