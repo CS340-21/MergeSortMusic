@@ -161,6 +161,6 @@ Our project is limited in scope and we fully expect to be able to complete all s
 proves to not be the case, however, It should be fully feasible to provide users with the full functionality of
 editing existing Spotify playlists.
 
-### Block Diagram
+## Block Diagram
 
 ![Block Diagram](/blockdiagram.jpg)
