@@ -124,31 +124,31 @@ Proposal draft
 
 #### Week 3
 
-Backend: Import Spotify playlists
+Backend: Develop support for importing Spotify playlists.
 
-Frontend: Rough draft layout
+Frontend: Create a rough draft layout for the frontend design.
 
 #### Week 4
 
-Backend: Sorting algo
+Backend: Implement a merge sorting algorithm that will run in the backend.
 
-Frontend: Tentative backend integration.
+Frontend: Connect the frontend and backend implementations and ensure they are able to communicate with each other.
 
 #### Week 5
 
-Backend: login
+Backend: Create a login system to store user progress.
 
-Frontend: CSS/MaterialUI or Bootstrap
+Frontend: Use CSS/MaterialUI or Bootstrap to develop the frontend visual design.
 
 #### Week 6
 
-Backend: optimizations
+Backend: Optimize and test website for performance issues and bugs.
 
-Frontend: Revision / Upgrading
+Frontend: Revise and upgrade frontend as needed.
 
 #### Week 7
 
-Collaborative sorting
+Implement collaborative sorting.
 
 ### Constraints
 
