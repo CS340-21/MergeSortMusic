@@ -39,6 +39,10 @@ John Carmack is a Senior majoring in computer science. Web development is a prim
 though he has only ever worked on fairly static web sites with limited user interactivity. He enjoys rock
 climbing, brazillian jiu-jitsu and works as a commissioned artist in his spare time.
 
+## Competing Technologies
+
+Currently, there are existing tools and websites that also apply user input-based merge sorting, but these websites are usually tailored towards a specific use case or fanbase. We have not found a general solution that can support any group or sorting of music. The general method of sorting music is either by consensus popularity rating or manually.
+
 ## Customer Value
 
 These are the motivations for our proposed web application and our projected outcomes for users.
