@@ -98,11 +98,11 @@ Merge Sort Algorithm and back end.
 
 ### Jonathan Ting
 
-Django Database Design and Backend API
+Django Database Design and Backend API. Project manager.
 
 ### John Carmack
 
-Front end design and development. Documentation
+Front end design and development. Documentation. User advocate
 
 ### Sheyank Patel
 
