@@ -84,10 +84,10 @@ Currently, there are existing tools and websites that also apply user input-base
 ## 3. Technology & Tools
 
 Our front-end will be composed of the big three webtools: HTML, CSS, and Javascript. We are also using
-the React framework to help organize and streamline the front-end creation process.
+the React framework to help organize and streamline the front-end creation process along with Material UI for styling purposes.
 
-Our back end is being implemented in Python’s Django framework, which uses SQLite as its default
-database. We have as of yet to decide to keep SQLite as our database technology for deployment.
+Our back-end is being implemented in Python’s Django framework, which uses SQLite as its default
+database. We have as of yet to decide to keep SQLite as our database technology for deployment. Depending on where we decide to host the website, we may switch the database technology to alternatives such as MySQL. Both the front-end and back-end will be developed with a RESTful API, so that the front-end and back-end can be developed independently and communicate through the API.
 
 The IDE of choice for the team seems to be VSCode thanks to the myriad of tools available to the Django
 and React developer.
