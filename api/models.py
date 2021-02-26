@@ -1,13 +1,13 @@
 from django.db import models
-import string
-import random
+from django.utils.crypto import get_random_string
 
 
 def generate_unique_code():
     length = 6
 
     while True:
-        code = ''.join(random.choices(string.ascii_uppercase, k=length))
+        code = get_random_string(
+            length=length, allowed_chars='ABCDEFGHJKLMNPQRSTUVWXYZ')
         if Room.objects.filter(code=code).count() == 0:
             break
 
