@@ -1,14 +1,10 @@
 import React, { Component } from "react";
+import { render } from "react-dom";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import RoomJoinPage from "./RoomJoinPage";
+import Info from "./Info";
 import CreateRoomPage from "./CreateRoomPage";
 import Room from "./Room";
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-} from "react-router-dom";
-import Info from "./Info";
-import { render } from "react-dom";
 import HomePage from "./HomePage";
 
 export default class App extends Component {
