@@ -22,26 +22,21 @@ export default class CreateRoomPage extends Component {
       errorMsg: "",
       successMsg: "",
     };
-
-    this.handleRoomButtonPressed = this.handleRoomButtonPressed.bind(this);
-    this.handleVotesChange = this.handleVotesChange.bind(this);
-    this.handleGuestCanPauseChange = this.handleGuestCanPauseChange.bind(this);
-    this.handleUpdateButtonPressed = this.handleUpdateButtonPressed.bind(this);
   }
 
-  handleVotesChange(e) {
+  handleVotesChange = (e) => {
     this.setState({
       votesToSkip: e.target.value,
     });
   }
 
-  handleGuestCanPauseChange(e) {
+  handleGuestCanPauseChange = (e) => {
     this.setState({
       guestCanPause: e.target.value === "true" ? true : false,
     });
   }
 
-  handleRoomButtonPressed() {
+  handleRoomButtonPressed = () => {
     const requestOptions = {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -55,7 +50,7 @@ export default class CreateRoomPage extends Component {
       .then((data) => this.props.history.push("/room/" + data.code));
   }
 
-  handleUpdateButtonPressed() {
+  handleUpdateButtonPressed = () => {
     const requestOptions = {
       method: "PATCH",
       headers: { "Content-Type": "application/json" },

@@ -9,8 +9,6 @@ export default class RoomJoinPage extends Component {
       roomCode: "",
       error: "",
     };
-    this.handleTextFieldChange = this.handleTextFieldChange.bind(this);
-    this.roomButtonPressed = this.roomButtonPressed.bind(this);
   }
 
   render() {
@@ -50,13 +48,13 @@ export default class RoomJoinPage extends Component {
     );
   }
 
-  handleTextFieldChange(e) {
+  handleTextFieldChange = (e) => {
     this.setState({
       roomCode: e.target.value,
     });
   }
 
-  roomButtonPressed() {
+  roomButtonPressed = () => {
     const requestOptions = {
       method: "POST",
       headers: { "Content-Type": "application/json" },
