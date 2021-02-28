@@ -13,13 +13,13 @@ export default class RoomJoinPage extends Component {
 
   render() {
     return (
-      <Grid container spacing={1}>
-        <Grid item xs={12} align="center">
+      <Grid container spacing={1} align="center">
+        <Grid item xs={12}>
           <Typography variant="h4" component="h4">
             Join a Room
           </Typography>
         </Grid>
-        <Grid item xs={12} align="center">
+        <Grid item xs={12}>
           <TextField
             error={this.state.error}
             label="Code"
@@ -30,7 +30,7 @@ export default class RoomJoinPage extends Component {
             onChange={this.handleTextFieldChange}
           />
         </Grid>
-        <Grid item xs={12} align="center">
+        <Grid item xs={12}>
           <Button
             variant="contained"
             color="primary"
@@ -39,7 +39,7 @@ export default class RoomJoinPage extends Component {
             Enter Room
           </Button>
         </Grid>
-        <Grid item xs={12} align="center">
+        <Grid item xs={12}>
           <Button variant="contained" color="secondary" to="/" component={Link}>
             Back
           </Button>

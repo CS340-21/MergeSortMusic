@@ -26,18 +26,18 @@ export default function Info(props) {
   });
 
   return (
-    <Grid container spacing={1}>
-      <Grid item xs={12} align="center">
+    <Grid container spacing={1} align="center">
+      <Grid item xs={12}>
         <Typography component="h4" variant="h4">
           What is House Party?
         </Typography>
       </Grid>
-      <Grid item xs={12} align="center">
+      <Grid item xs={12}>
         <Typography variant="body1">
           {page === pages.JOIN ? joinInfo() : createInfo()}
         </Typography>
       </Grid>
-      <Grid item xs={12} align="center">
+      <Grid item xs={12}>
         <IconButton
           onClick={() => {
             page === pages.CREATE ? setPage(pages.JOIN) : setPage(pages.CREATE);
@@ -50,7 +50,7 @@ export default function Info(props) {
           )}
         </IconButton>
       </Grid>
-      <Grid item xs={12} align="center">
+      <Grid item xs={12}>
         <Button color="secondary" variant="contained" to="/" component={Link}>
           Back
         </Button>
