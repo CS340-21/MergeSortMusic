@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Grid, Button, Typography, IconButton } from "@material-ui/core";
-import NavigateBeforeIcon from "@material-ui/icons/NavigateBefore";
-import NavigateNextIcon from "@material-ui/icons/NavigateNext";
+import { NavigateBefore, NavigateNext } from "@material-ui/icons";
 
 const pages = {
   JOIN: "pages.join",
@@ -44,9 +43,9 @@ export default function Info(props) {
           }}
         >
           {page === pages.CREATE ? (
-            <NavigateBeforeIcon />
+            <NavigateBefore />
           ) : (
-            <NavigateNextIcon />
+            <NavigateNext />
           )}
         </IconButton>
       </Grid>
