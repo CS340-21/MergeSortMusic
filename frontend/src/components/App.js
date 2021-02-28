@@ -14,7 +14,7 @@ export default class App extends Component {
 
   render() {
     return (
-      <div className="center">
+      <>
         <Router>
           <Switch>
             <Route path="/join" component={RoomJoinPage} />
@@ -24,7 +24,7 @@ export default class App extends Component {
             <Route path="/" component={HomePage} />
           </Switch>
         </Router>
-      </div>
+      </>
     );
   }
 }
