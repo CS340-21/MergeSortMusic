@@ -15,10 +15,10 @@ export default class Room extends Component {
       song: {},
     };
     this.roomCode = this.props.match.params.roomCode;
-    this.getRoomDetails();
   }
 
   componentDidMount() {
+    this.getRoomDetails();
     this.interval = setInterval(this.getCurrentSong, 1000);
   }
 
@@ -27,7 +27,7 @@ export default class Room extends Component {
   }
 
   getRoomDetails = () => {
-    return fetch("/api/get-room" + "?code=" + this.roomCode)
+    return fetch(`/api/get-room?code=${this.roomCode}`)
       .then((response) => {
         if (!response.ok) {
           this.props.history.push("/");
