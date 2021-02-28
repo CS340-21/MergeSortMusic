@@ -11,11 +11,11 @@ const pages = {
 export default function Info(props) {
   const [page, setPage] = useState(pages.JOIN);
 
-  function joinInfo() {
+  const joinInfo = () => {
     return "Join page";
   }
 
-  function createInfo() {
+  const createInfo = () => {
     return "Create page";
   }
 
