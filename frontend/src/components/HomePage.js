@@ -12,8 +12,8 @@ export default class HomePage extends Component {
 
   async componentDidMount() {
     fetch("/api/user-in-room")
-      .then((response) => response.json())
-      .then((data) => {
+      .then(response => response.json())
+      .then(data => {
         this.setState({
           roomCode: data.code,
         });

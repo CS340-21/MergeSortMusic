@@ -48,7 +48,7 @@ export default class RoomJoinPage extends Component {
     );
   }
 
-  handleTextFieldChange = (e) => {
+  handleTextFieldChange = e => {
     this.setState({
       roomCode: e.target.value,
     });
@@ -63,14 +63,14 @@ export default class RoomJoinPage extends Component {
       }),
     };
     fetch("/api/join-room", requestOptions)
-      .then((response) => {
+      .then(response => {
         if (response.ok) {
           this.props.history.push(`/room/${this.state.roomCode}`);
         } else {
           this.setState({ error: "Room not found." });
         }
       })
-      .catch((error) => {
+      .catch(error => {
         console.log(error);
       });
   }

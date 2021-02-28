@@ -24,13 +24,13 @@ export default class CreateRoomPage extends Component {
     };
   }
 
-  handleVotesChange = (e) => {
+  handleVotesChange = e => {
     this.setState({
       votesToSkip: e.target.value,
     });
   }
 
-  handleGuestCanPauseChange = (e) => {
+  handleGuestCanPauseChange = e => {
     this.setState({
       guestCanPause: e.target.value === "true" ? true : false,
     });
@@ -46,8 +46,8 @@ export default class CreateRoomPage extends Component {
       }),
     };
     fetch("/api/create-room", requestOptions)
-      .then((response) => response.json())
-      .then((data) => this.props.history.push("/room/" + data.code));
+      .then(response => response.json())
+      .then(data => this.props.history.push("/room/" + data.code));
   }
 
   handleUpdateButtonPressed = () => {

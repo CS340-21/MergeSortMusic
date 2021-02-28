@@ -28,13 +28,13 @@ export default class Room extends Component {
 
   getRoomDetails = () => {
     return fetch(`/api/get-room?code=${this.roomCode}`)
-      .then((response) => {
+      .then(response => {
         if (!response.ok) {
           this.props.history.push("/");
         }
         return response.json();
       })
-      .then((data) => {
+      .then(data => {
         this.setState({
           votesToSkip: data.votes_to_skip,
           guestCanPause: data.guest_can_pause,
@@ -48,14 +48,14 @@ export default class Room extends Component {
 
   authenticateSpotify = () => {
     fetch("/spotify/is-authenticated")
-      .then((response) => response.json())
-      .then((data) => {
+      .then(response => response.json())
+      .then(data => {
         this.setState({ spotifyAuthenticated: data.status });
         console.log(data.status);
         if (!data.status) {
           fetch("/spotify/get-auth-url")
-            .then((response) => response.json())
-            .then((data) => {
+            .then(response => response.json())
+            .then(data => {
               window.location.replace(data.url);
             });
         }
@@ -64,14 +64,14 @@ export default class Room extends Component {
 
   getCurrentSong = () => {
     fetch("/spotify/current-song")
-      .then((response) => {
+      .then(response => {
         if (!response.ok) {
           return {};
         } else {
           return response.json();
         }
       })
-      .then((data) => {
+      .then(data => {
         this.setState({ song: data });
         console.log(data);
       });
@@ -82,12 +82,12 @@ export default class Room extends Component {
       method: "POST",
       headers: { "Content-Type": "application/json" },
     };
-    fetch("/api/leave-room", requestOptions).then((_response) => {
+    fetch("/api/leave-room", requestOptions).then(_response => {
       this.props.history.push("/");
     });
   }
 
-  updateShowSettings = (value) => {
+  updateShowSettings = value => {
     this.setState({
       showSettings: value,
     });
