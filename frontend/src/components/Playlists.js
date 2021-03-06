@@ -1,23 +1,156 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { Grid, Button, Typography, IconButton } from "@material-ui/core";
-import { NavigateBefore, NavigateNext } from "@material-ui/icons";
+import {
+  Grid,
+  Button,
+  Typography,
+  Modal,
+  Backdrop,
+  Fade,
+  ListSubheader,
+  List,
+  ListItem,
+  ListItemIcon,
+  ListItemText,
+  Collapse,
+} from "@material-ui/core";
+import {
+  Inbox,
+  Drafts,
+  Send,
+  ExpandLess,
+  ExpandMore,
+  StarBorder,
+} from "@material-ui/icons";
+import { makeStyles } from "@material-ui/core/styles";
 
-const pages = {
-  JOIN: "pages.join",
-  CREATE: "pages.create",
-};
+
+const useStyles = makeStyles((theme) => ({
+  modal: {
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  paper: {
+    backgroundColor: theme.palette.background.paper,
+    border: "2px solid #000",
+    boxShadow: theme.shadows[5],
+    padding: theme.spacing(2, 4, 3),
+  },
+  root: {
+    width: '100%',
+    maxWidth: 360,
+    backgroundColor: theme.palette.background.paper,
+  },
+  nested: {
+    paddingLeft: theme.spacing(4),
+  },
+}));
 
 export default function Playlists(props) {
-  const [page, setPage] = useState(pages.JOIN);
+  const classes = useStyles();
+  const [playlists, setPlaylists] = useState({});
+  const [openModal, setOpenModal] = useState(false);
+  const [openList, setOpenList] = useState(false);
 
-  const joinPlaylists = () => {
-    return "Join page";
-  }
+  const getPlaylists = () => {
+    fetch("/spotify/get-playlists")
+      .then((response) => {
+        if (!response.ok) {
+          return {};
+        } else {
+          return response.json();
+        }
+      })
+      .then((data) => {
+        setPlaylists(data);
+        console.log(data);
+      });
+  };
 
-  const createPlaylists = () => {
-    return "Create page";
-  }
+  const handleClick = () => {
+    setOpenList(!openList);
+  };
+
+
+  const handleOpen = () => {
+    setOpenModal(true);
+  };
+
+  const handleClose = () => {
+    setOpenModal(false);
+  };
+
+  const renderList = () => {
+    return (
+      <div className={classes.paper}>
+        <List
+          component="nav"
+          aria-labelledby="nested-list-subheader"
+          subheader={
+            <ListSubheader component="div" id="nested-list-subheader">
+              Nested List Items
+            </ListSubheader>
+          }
+          className={classes.root}
+        >
+          <ListItem button>
+            <ListItemIcon>
+              <Send />
+            </ListItemIcon>
+            <ListItemText primary="Sent mail" />
+          </ListItem>
+          <ListItem button>
+            <ListItemIcon>
+              <Drafts />
+            </ListItemIcon>
+            <ListItemText primary="Drafts" />
+          </ListItem>
+          <ListItem button onClick={handleClick}>
+            <ListItemIcon>
+              <Inbox />
+            </ListItemIcon>
+            <ListItemText primary="Inbox" />
+            {openList ? <ExpandLess /> : <ExpandMore />}
+          </ListItem>
+          <Collapse in={openList} timeout="auto" unmountOnExit>
+            <List component="div" disablePadding>
+              <ListItem button className={classes.nested}>
+                <ListItemIcon>
+                  <StarBorder />
+                </ListItemIcon>
+                <ListItemText primary="Starred" />
+              </ListItem>
+            </List>
+          </Collapse>
+        </List>
+      </div>
+    );
+  };
+
+  const renderModal = () => {
+    return (
+      <div>
+        <Button variant="contained" color="primary" onClick={handleOpen}>
+          Import Playlist from Spotify
+        </Button>
+        <Modal
+          aria-labelledby="transition-modal-title"
+          aria-describedby="transition-modal-description"
+          className={classes.modal}
+          open={openModal}
+          onClose={handleClose}
+          closeAfterTransition
+          BackdropComponent={Backdrop}
+          BackdropProps={{
+            timeout: 500,
+          }}
+        >
+          <Fade in={openModal}>{renderList()}</Fade>
+        </Modal>
+      </div>
+    );
+  };
 
   useEffect(() => {
     console.log("ran");
@@ -28,26 +161,11 @@ export default function Playlists(props) {
     <Grid container spacing={1} align="center">
       <Grid item xs={12}>
         <Typography component="h4" variant="h4">
-          What is House Party?
+          My Playlists
         </Typography>
       </Grid>
       <Grid item xs={12}>
-        <Typography variant="body1">
-          {page === pages.JOIN ? joinPlaylists() : createPlaylists()}
-        </Typography>
-      </Grid>
-      <Grid item xs={12}>
-        <IconButton
-          onClick={() => {
-            page === pages.CREATE ? setPage(pages.JOIN) : setPage(pages.CREATE);
-          }}
-        >
-          {page === pages.CREATE ? (
-            <NavigateBefore />
-          ) : (
-            <NavigateNext />
-          )}
-        </IconButton>
+        {renderModal()}
       </Grid>
       <Grid item xs={12}>
         <Button color="secondary" variant="contained" to="/" component={Link}>
