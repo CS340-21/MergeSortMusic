@@ -113,6 +113,51 @@ class CurrentSong(APIView):
             votes = Vote.objects.filter(room=room).delete()
 
 
+class GetPlaylists(APIView):
+    def get(self, request, format=None):
+        # Send request to Spotify for user's playlists.
+        host = self.request.session.session_key
+        endpoint = "playlists"
+        response = execute_spotify_api_request(host, endpoint)
+
+        # Return 204 if error.
+        if 'error' in response or 'items' not in response:
+            return Response({}, status=status.HTTP_204_NO_CONTENT)
+
+        # Get list of playlists.
+        items = response.get('items')
+
+        # Return 204 if user has no playlists.
+        if not items:
+            return Response({}, status=status.HTTP_204_NO_CONTENT)
+
+        # Collect playlist information into a list.
+        playlists = []
+        for item in items:
+            playlist = {
+                # images = []  # add image support later
+                'collaborative': item.get('collaborative'),
+                'playlist_url': item.get('external_urls').get('spotify'),
+                'href': item.get('href'),
+                'playlist_id': item.get('id'),
+                'name': item.get('name'),
+                'owner_url': item.get('owner').item.get('external_urls').item.get('spotify'),
+                'owner_href': item.get('owner').item.get('href'),
+                'owner_id': item.get('owner').item.get('id'),
+                'owner_type': item.get('owner').item.get('type'),
+                'owner_uri': item.get('owner').item.get('uri'),
+                'public': item.get('public'),
+                'snapshot_id': item.get('snapshot_id'),
+                'tracks_href': item.get('tracks').item.get('href'),
+                'tracks_total': item.get('tracks').item.get('total'),
+                'playlist_type': item.get('type'),
+                'uri': item.get('uri')
+            }
+            playlists.append(playlist)
+
+        return Response(playlists, status=status.HTTP_200_OK)
+
+
 class PauseSong(APIView):
     def put(self, response, format=None):
         room_code = self.request.session.get('room_code')
