@@ -185,11 +185,17 @@ export default function App(props) {
 
         <Switch>
           <Route path="/join" component={RoomJoinPage} />
-          <Route path="/info" component={Info} />
-          <Route path="/playlists" component={Playlists} />
+          <Route path="/info" >
+            <Info />
+          </Route>
+          <Route path="/playlists">
+            <Playlists />
+          </Route>
           <Route path="/create" component={CreateRoomPage} />
           <Route path="/room/:roomCode" component={Room} />
-          <Route path="/" component={HomePage} />
+          <Route path="/">
+            <HomePage />
+          </Route>
         </Switch>
       </Router>
     </div>

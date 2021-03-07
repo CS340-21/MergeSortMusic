@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { Grid, Button, ButtonGroup, Typography } from "@material-ui/core";
 import { Link } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 
 export default function HomePage(props) {
   const [roomCode,setRoomCode] = useState(null);
+  const history = useHistory();
 
   useEffect(async () => {
     fetch("/api/user-in-room")
@@ -11,7 +13,7 @@ export default function HomePage(props) {
       .then(data => {
         setRoomCode(data.code);
         if (roomCode !== null) {
-          props.history.push(`/room/${roomCode}`);
+          history.push(`/room/${roomCode}`);
         }
       });
   });
