@@ -189,7 +189,7 @@ export default function App(props) {
             <Info />
           </Route>
           <Route path="/playlists">
-            <Playlists />
+            <Playlists authenticated={spotifyAuthenticated}/>
           </Route>
           <Route path="/create" component={CreateRoomPage} />
           <Route path="/room/:roomCode" component={Room} />

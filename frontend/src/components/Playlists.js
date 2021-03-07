@@ -102,7 +102,7 @@ export default function Playlists(props) {
           aria-labelledby="nested-list-subheader"
           subheader={
             <ListSubheader component="div" id="nested-list-subheader">
-              Nested List Items
+              Playlists
             </ListSubheader>
           }
           className={classes.root}
@@ -116,7 +116,7 @@ export default function Playlists(props) {
   const renderModal = () => {
     return (
       <div>
-        <Button variant="contained" color="primary" onClick={handleOpen}>
+        <Button variant="contained" color="primary" disabled={!props.authenticated} onClick={handleOpen}>
           Import Playlist from Spotify
         </Button>
         <Modal
@@ -138,7 +138,9 @@ export default function Playlists(props) {
   };
 
   useEffect(() => {
-    getPlaylists();
+    if (props.authenticated) {
+      getPlaylists();
+    }
     return () => console.log("cleanup");
   }, []);
 
