@@ -3,8 +3,18 @@ import { render } from "react-dom";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 
 import { makeStyles } from "@material-ui/core/styles";
-import { AppBar, Toolbar, IconButton } from "@material-ui/core";
-import { Home, Menu } from "@material-ui/icons";
+import {
+  AppBar,
+  Toolbar,
+  IconButton,
+  Drawer,
+  List,
+  Divider,
+  ListItem,
+  ListItemIcon,
+  ListItemText,
+} from "@material-ui/core";
+import { Home, Menu, Inbox, Mail } from "@material-ui/icons";
 
 import RoomJoinPage from "./RoomJoinPage";
 import Info from "./Info";
@@ -12,14 +22,6 @@ import Playlists from "./Playlists";
 import CreateRoomPage from "./CreateRoomPage";
 import Room from "./Room";
 import HomePage from "./HomePage";
-import Drawer from "@material-ui/core/Drawer";
-import List from "@material-ui/core/List";
-import Divider from "@material-ui/core/Divider";
-import ListItem from "@material-ui/core/ListItem";
-import ListItemIcon from "@material-ui/core/ListItemIcon";
-import ListItemText from "@material-ui/core/ListItemText";
-import InboxIcon from "@material-ui/icons/MoveToInbox";
-import MailIcon from "@material-ui/icons/Mail";
 
 const useStyles = makeStyles((theme) => ({
   gradient: {
@@ -61,7 +63,7 @@ export default function App(props) {
       <List>
         <ListItem button key={"Playlists"} to="/playlists" component={Link}>
           <ListItemIcon>
-            <InboxIcon />
+            <Inbox />
           </ListItemIcon>
           <ListItemText primary={"Playlists"} />
         </ListItem>
@@ -70,7 +72,7 @@ export default function App(props) {
       <List>
         <ListItem button key={"Info"} to="/info" component={Link}>
           <ListItemIcon>
-            <MailIcon />
+            <Mail />
           </ListItemIcon>
           <ListItemText primary={"Info"} />
         </ListItem>
@@ -109,7 +111,7 @@ export default function App(props) {
         >
           {list("left")}
         </Drawer>
-        
+
         <Switch>
           <Route path="/join" component={RoomJoinPage} />
           <Route path="/info" component={Info} />
