@@ -130,7 +130,7 @@ export default function App(props) {
   useEffect(() => {
     console.log("ran");
     checkAuthentication();
-    const interval = setInterval(() => {checkAuthentication()}, 3000);
+    const interval = setInterval(() => {checkAuthentication()}, 300000);
     return () => {
       console.log("cleanup");
       clearInterval(interval);
