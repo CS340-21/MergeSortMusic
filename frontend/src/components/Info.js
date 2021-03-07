@@ -22,7 +22,7 @@ export default function Info(props) {
   useEffect(() => {
     console.log("ran");
     return () => console.log("cleanup");
-  });
+  }, []);
 
   return (
     <Grid container spacing={1} align="center">

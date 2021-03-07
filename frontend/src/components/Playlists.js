@@ -49,7 +49,7 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Playlists(props) {
   const classes = useStyles();
-  const [playlists, setPlaylists] = useState({});
+  const [playlists, setPlaylists] = useState([]);
   const [openModal, setOpenModal] = useState(false);
   const [openList, setOpenList] = useState(false);
 
@@ -67,7 +67,7 @@ export default function Playlists(props) {
         console.log(data);
       });
   };
-
+  
   const handleClick = () => {
     setOpenList(!openList);
   };
@@ -82,6 +82,19 @@ export default function Playlists(props) {
   };
 
   const renderList = () => {
+    const listItems = [];
+
+    for (const [index, playlist] of playlists.entries()) {
+      listItems.push(
+        <ListItem button>
+          <ListItemIcon>
+            <Send />
+          </ListItemIcon>
+          <ListItemText primary={playlist.name} />
+        </ListItem>
+      )
+    }
+
     return (
       <div className={classes.paper}>
         <List
@@ -94,35 +107,7 @@ export default function Playlists(props) {
           }
           className={classes.root}
         >
-          <ListItem button>
-            <ListItemIcon>
-              <Send />
-            </ListItemIcon>
-            <ListItemText primary="Sent mail" />
-          </ListItem>
-          <ListItem button>
-            <ListItemIcon>
-              <Drafts />
-            </ListItemIcon>
-            <ListItemText primary="Drafts" />
-          </ListItem>
-          <ListItem button onClick={handleClick}>
-            <ListItemIcon>
-              <Inbox />
-            </ListItemIcon>
-            <ListItemText primary="Inbox" />
-            {openList ? <ExpandLess /> : <ExpandMore />}
-          </ListItem>
-          <Collapse in={openList} timeout="auto" unmountOnExit>
-            <List component="div" disablePadding>
-              <ListItem button className={classes.nested}>
-                <ListItemIcon>
-                  <StarBorder />
-                </ListItemIcon>
-                <ListItemText primary="Starred" />
-              </ListItem>
-            </List>
-          </Collapse>
+          {listItems}
         </List>
       </div>
     );
@@ -153,9 +138,9 @@ export default function Playlists(props) {
   };
 
   useEffect(() => {
-    console.log("ran");
+    getPlaylists();
     return () => console.log("cleanup");
-  });
+  }, []);
 
   return (
     <Grid container spacing={1} align="center">
