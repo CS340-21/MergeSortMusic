@@ -86,7 +86,7 @@ export default function Playlists(props) {
 
     for (const [index, playlist] of playlists.entries()) {
       listItems.push(
-        <ListItem button>
+        <ListItem button key={index}>
           <ListItemIcon>
             <Send />
           </ListItemIcon>
