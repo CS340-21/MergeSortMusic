@@ -136,7 +136,29 @@ export default function Playlists(props) {
       </div>
     );
   };
-
+/*
+  const handleUpdateButtonPressed = () => {
+    const requestOptions = {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        votes_to_skip: this.state.votesToSkip,
+        guest_can_pause: this.state.guestCanPause,
+      }),
+    };
+    fetch("/api/import-playlist", requestOptions).then((response) => {
+      if (response.ok) {
+        this.setState({
+          successMsg: "Playlist imported successfully!",
+        });
+      } else {
+        this.setState({
+          errorMsg: "Error updating room...",
+        });
+      }
+    });
+  }
+*/
   useEffect(() => {
     if (props.authenticated) {
       getPlaylists();
