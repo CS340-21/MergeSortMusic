@@ -78,7 +78,6 @@ void recursive_sort(vector <string> &v, vector <string> &temp, int start, int si
 	//is the smallest (i is the beginning and j is the middle of the section). Place smaller value in
 	//temperary vector and increment i or j depending on which value was put into the temp vector.
 	j = size/2;
-//	i = 0;
 	int d = 0;
 	for(k = 0; k < size; k++){
 		//Print current playlist
