@@ -26,5 +26,5 @@ class UpdateRoomSerializer(serializers.ModelSerializer):
 class SortInstanceSerializer(serializers.ModelSerializer):
     class Meta:
         model = SortInstance
-        fields = ('title', 'num_songs')
+        fields = ('id', 'title', 'num_songs')
 

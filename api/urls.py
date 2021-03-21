@@ -10,5 +10,7 @@ urlpatterns = [
     path('leave-room', LeaveRoom.as_view()),
     path('update-room', UpdateRoom.as_view()),
     path('import-playlist/<str:playlist_id>', ImportPlaylist.as_view()),
-    path('get-sort-instances', GetSortInstances.as_view())
+    path('get-sort-instances', GetSortInstances.as_view()),
+    path('delete-all-sort-instances', DeleteAllSortInstances.as_view()),
+    path('delete-sort-instance/<str:si_id>', DeleteSortInstance.as_view())
 ]

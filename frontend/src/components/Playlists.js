@@ -12,18 +12,23 @@ import {
   ListItem,
   ListItemIcon,
   ListItemText,
+  ListItemAvatar,
+  ListItemSecondaryAction,
+  IconButton,
+  Avatar,
   Collapse,
 } from "@material-ui/core";
 import {
   Inbox,
   Drafts,
   Send,
+  Folder,
+  Delete,
   ExpandLess,
   ExpandMore,
   StarBorder,
 } from "@material-ui/icons";
 import { makeStyles } from "@material-ui/core/styles";
-
 
 const useStyles = makeStyles((theme) => ({
   modal: {
@@ -38,7 +43,7 @@ const useStyles = makeStyles((theme) => ({
     padding: theme.spacing(2, 4, 3),
   },
   root: {
-    width: '100%',
+    width: "100%",
     maxWidth: 360,
     backgroundColor: theme.palette.background.paper,
   },
@@ -50,6 +55,7 @@ const useStyles = makeStyles((theme) => ({
 export default function Playlists(props) {
   const classes = useStyles();
   const [playlists, setPlaylists] = useState([]);
+  const [sortInstances, setSortInstances] = useState([]);
   const [openModal, setOpenModal] = useState(false);
   const [openList, setOpenList] = useState(false);
 
@@ -67,11 +73,61 @@ export default function Playlists(props) {
         console.log(data);
       });
   };
-  
+
+  const getSortInstances = () => {
+    fetch("/api/get-sort-instances")
+      .then((response) => {
+        if (!response.ok) {
+          return {};
+        } else {
+          return response.json();
+        }
+      })
+      .then((data) => {
+        setSortInstances(data);
+        console.log(data);
+      });
+  };
+
+  const importPlaylist = (playlist_id) => {
+    const requestOptions = {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+    };
+    fetch(`/api/import-playlist/${playlist_id}`, requestOptions).then((response) => {
+      if (response.ok) {
+        getSortInstances();
+      }
+    });
+  };
+
+  const deleteAllSortInstances = () => {
+    const requestOptions = {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+    };
+    fetch("/api/delete-all-sort-instances", requestOptions).then((response) => {
+      if (response.ok) {
+        getSortInstances();
+      }
+    });
+  };
+
+  const deleteSortInstance = (si_id) => {
+    const requestOptions = {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+    };
+    fetch(`/api/delete-sort-instance/${si_id}`, requestOptions).then((response) => {
+      if (response.ok) {
+        getSortInstances();
+      }
+    });
+  };
+
   const handleClick = () => {
     setOpenList(!openList);
   };
-
 
   const handleOpen = () => {
     setOpenModal(true);
@@ -81,18 +137,29 @@ export default function Playlists(props) {
     setOpenModal(false);
   };
 
-  const renderList = () => {
+  const renderPlaylistList = () => {
     const listItems = [];
 
-    for (const [index, playlist] of playlists.entries()) {
-      listItems.push(
-        <ListItem button key={index}>
-          <ListItemIcon>
-            <Send />
-          </ListItemIcon>
-          <ListItemText primary={playlist.name} />
-        </ListItem>
-      )
+    try {
+      for (const [index, playlist] of playlists.entries()) {
+        listItems.push(
+          <ListItem
+            button
+            key={index}
+            onClick={() => {
+              importPlaylist(playlist.playlist_id);
+            }}
+          >
+            <ListItemIcon>
+              <Send />
+            </ListItemIcon>
+            <ListItemText primary={playlist.name} />
+          </ListItem>
+        );
+      }
+    }
+    catch(err) {
+      console.log(err.message);
     }
 
     return (
@@ -113,11 +180,62 @@ export default function Playlists(props) {
     );
   };
 
+  const renderSortInstance = () => {
+    const listItems = [];
+
+    try {
+      for (const [index, sortInstance] of sortInstances.entries()) {
+        listItems.push(
+          <ListItem button key={index}>
+            <ListItemAvatar>
+              <Avatar>
+                <Folder />
+              </Avatar>
+            </ListItemAvatar>
+            <ListItemText primary={sortInstance.title} />
+            <ListItemSecondaryAction
+              onClick={() => {
+                deleteSortInstance(sortInstance.id);
+              }}
+            >
+              <IconButton edge="end" aria-label="delete">
+                <Delete />
+              </IconButton>
+            </ListItemSecondaryAction>
+          </ListItem>
+        );
+      }
+    }
+    catch(err) {
+      console.log(err.message);
+    }
+
+    return (
+      <div>
+        <List className={classes.root}>
+          {listItems}
+        </List>
+      </div>
+    );
+  };
+
   const renderModal = () => {
     return (
       <div>
-        <Button variant="contained" color="primary" disabled={!props.authenticated} onClick={handleOpen}>
+        <Button
+          variant="contained"
+          color="primary"
+          disabled={!props.authenticated}
+          onClick={handleOpen}
+        >
           Import Playlist from Spotify
+        </Button>
+        <Button
+          variant="contained"
+          color="secondary"
+          onClick={deleteAllSortInstances}
+        >
+          Delete All Sort Instances
         </Button>
         <Modal
           aria-labelledby="transition-modal-title"
@@ -131,37 +249,16 @@ export default function Playlists(props) {
             timeout: 500,
           }}
         >
-          <Fade in={openModal}>{renderList()}</Fade>
+          <Fade in={openModal}>{renderPlaylistList()}</Fade>
         </Modal>
       </div>
     );
   };
-/*
-  const handleUpdateButtonPressed = () => {
-    const requestOptions = {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        votes_to_skip: this.state.votesToSkip,
-        guest_can_pause: this.state.guestCanPause,
-      }),
-    };
-    fetch("/api/import-playlist", requestOptions).then((response) => {
-      if (response.ok) {
-        this.setState({
-          successMsg: "Playlist imported successfully!",
-        });
-      } else {
-        this.setState({
-          errorMsg: "Error updating room...",
-        });
-      }
-    });
-  }
-*/
+
   useEffect(() => {
     if (props.authenticated) {
       getPlaylists();
+      getSortInstances();
     }
     return () => console.log("cleanup");
   }, []);
@@ -175,6 +272,9 @@ export default function Playlists(props) {
       </Grid>
       <Grid item xs={12}>
         {renderModal()}
+      </Grid>
+      <Grid item xs={12}>
+        {renderSortInstance()}
       </Grid>
       <Grid item xs={12}>
         <Button color="secondary" variant="contained" to="/" component={Link}>

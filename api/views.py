@@ -133,6 +133,9 @@ class UpdateRoom(APIView):
 
 class ImportPlaylist(APIView):
     def post(self, request, playlist_id, format=None):
+        if not self.request.session.exists(self.request.session.session_key):
+            self.request.session.create()
+
         playlist = get_playlist_info(self, playlist_id)
 
         new_sort_instance = SortInstance(user=self.request.session.session_key,
@@ -159,5 +162,32 @@ class GetSortInstances(APIView):
         if sort_instances:
             data = SortInstanceSerializer(sort_instances, many=True).data
             return Response(data, status=status.HTTP_200_OK)
-            
+
         return Response({'Sort Instances Not Found': 'No sort instances found for this session.'}, status=status.HTTP_404_NOT_FOUND)
+
+
+class DeleteAllSortInstances(APIView):
+    def post(self, request, format=None):
+        if not self.request.session.exists(self.request.session.session_key):
+            self.request.session.create()
+
+        sort_instances = SortInstance.objects.filter(
+            user=self.request.session.session_key)
+        if sort_instances:
+            sort_instances.delete()
+            return Response({}, status.HTTP_204_NO_CONTENT)
+
+        return Response({'Nothing to Delete': 'No sort instances found.'}, status=status.HTTP_404_NOT_FOUND)
+
+
+class DeleteSortInstance(APIView):
+    def post(self, request, si_id, format=None):
+        if not self.request.session.exists(self.request.session.session_key):
+            self.request.session.create()
+
+        sort_instance = SortInstance.objects.filter(id=si_id)
+        if sort_instance:
+            sort_instance.delete()
+            return Response({}, status.HTTP_204_NO_CONTENT)
+
+        return Response({'Nothing to Delete': 'Specified sort instance not found.'}, status=status.HTTP_404_NOT_FOUND)
