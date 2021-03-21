@@ -109,3 +109,48 @@ def pause_song(session_id):
 
 def skip_song(session_id):
     return execute_user_spotify_api_request(session_id, "player/next", post_=True)
+
+
+def get_playlist_info(self, playlist_id):
+    # Send request to Spotify for user's playlists.
+    host = self.request.session.session_key
+    endpoint = f'playlists/{playlist_id}'
+    response = execute_spotify_api_request(host, endpoint)
+
+    # Return 204 if error.
+    if 'error' in response or 'tracks' not in response:
+        return None
+
+    # Get list of playlists.
+    items = response.get('tracks').get('items')
+
+    # Return 204 if user has no playlists.
+    if not items:
+        return None
+
+    # Collect playlist information into a list.
+    tracks = []
+    for item in items:
+        artist_string = ""
+        for i, artist in enumerate(item.get('track').get('artists')):
+            if i > 0:
+                artist_string += ", "
+            name = artist.get('name')
+            artist_string += name
+
+        track = {
+            'album': item.get('track').get('album').get('name'),
+            'artist': artist_string,
+            'track_id': item.get('track').get('id'),
+            'track_name': item.get('track').get('name'),
+        }
+        tracks.append(track)
+
+    playlist = {
+        'id': response.get('id'),
+        'name': response.get('name'),
+        'num_tracks': response.get('tracks').get('total'),
+        'tracks': tracks,
+    }
+
+    return playlist

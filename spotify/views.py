@@ -186,45 +186,9 @@ class GetPlaylists(APIView):
 
 class GetPlaylistInfo(APIView):
     def get(self, request, playlist_id, format=None):
-        # Send request to Spotify for user's playlists.
-        host = self.request.session.session_key
-        endpoint = f'playlists/{playlist_id}'
-        response = execute_spotify_api_request(host, endpoint)
+        playlist_info = get_playlist_info(self, playlist_id)
 
-        # Return 204 if error.
-        if 'error' in response or 'tracks' not in response:
+        if playlist_info is None:
             return Response({}, status=status.HTTP_204_NO_CONTENT)
-
-        # Get list of playlists.
-        items = response.get('tracks').get('items')
-
-        # Return 204 if user has no playlists.
-        if not items:
-            return Response({}, status=status.HTTP_204_NO_CONTENT)
-
-        # Collect playlist information into a list.
-        tracks = []
-        for item in items:
-            artist_string = ""
-            for i, artist in enumerate(item.get('track').get('artists')):
-                if i > 0:
-                    artist_string += ", "
-                name = artist.get('name')
-                artist_string += name
-
-            track = {
-                'album': item.get('track').get('album').get('name'),
-                'artist': artist_string,
-                'track_id': item.get('track').get('id'),
-                'track_name': item.get('track').get('name'),
-            }
-            tracks.append(track)
-
-        playlist = {
-            'id': response.get('id'),
-            'name': response.get('name'),
-            'num_tracks': response.get('tracks').get('total'),
-            'tracks': tracks,
-        }
-
-        return Response(playlist, status=status.HTTP_200_OK)
+        else:
+            return Response(playlist_info, status=status.HTTP_200_OK)

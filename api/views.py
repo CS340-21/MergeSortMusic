@@ -1,10 +1,11 @@
 from django.shortcuts import render
 from rest_framework import generics, status
-from .serializers import RoomSerializer, CreateRoomSerializer, UpdateRoomSerializer
-from .models import Room
+from .serializers import *
+from .models import *
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from django.http import JsonResponse
+from spotify.util import get_playlist_info
 
 # Create your views here.
 
@@ -128,3 +129,35 @@ class UpdateRoom(APIView):
             return Response(RoomSerializer(room).data, status=status.HTTP_200_OK)
 
         return Response({'Bad Request': "Invalid Data..."}, status=status.HTTP_400_BAD_REQUEST)
+
+
+class ImportPlaylist(APIView):
+    def post(self, request, playlist_id, format=None):
+        playlist = get_playlist_info(self, playlist_id)
+
+        new_sort_instance = SortInstance(user=self.request.session.session_key,
+                                         title=playlist['name'], num_songs=playlist['num_tracks'])
+        new_sort_instance.save()
+
+        for track in playlist['tracks']:
+            new_song = Song(sort_instance=new_sort_instance, name=track['track_name'],
+                            artist=track['artist'], album=track['album'], spotify_id=track['track_id'])
+            new_song.save()
+
+        return Response({}, status.HTTP_204_NO_CONTENT)
+
+
+class GetSortInstances(APIView):
+    serializer_class = SortInstanceSerializer
+
+    def get(self, request, format=None):
+        if not self.request.session.exists(self.request.session.session_key):
+            self.request.session.create()
+
+        sort_instances = SortInstance.objects.filter(
+            user=self.request.session.session_key)
+        if sort_instances:
+            data = SortInstanceSerializer(sort_instances, many=True).data
+            return Response(data, status=status.HTTP_200_OK)
+            
+        return Response({'Sort Instances Not Found': 'No sort instances found for this session.'}, status=status.HTTP_404_NOT_FOUND)

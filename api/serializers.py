@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Room
+from .models import Room, SortInstance
 
 
 class RoomSerializer(serializers.ModelSerializer):
@@ -21,3 +21,10 @@ class UpdateRoomSerializer(serializers.ModelSerializer):
     class Meta:
         model = Room
         fields = ('guest_can_pause', 'votes_to_skip', 'code')
+
+
+class SortInstanceSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = SortInstance
+        fields = ('title', 'num_songs')
+

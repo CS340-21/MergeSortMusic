@@ -22,3 +22,18 @@ class Room(models.Model):
     votes_to_skip = models.IntegerField(null=False, default=1)
     created_at = models.DateTimeField(auto_now_add=True)
     current_song = models.CharField(max_length=50, null=True)
+
+
+class SortInstance(models.Model):
+    user = models.CharField(max_length=50)
+    title = models.CharField(max_length=200)
+    num_songs = models.IntegerField(default=1)
+
+
+class Song(models.Model):
+    sort_instance = models.ForeignKey(SortInstance, on_delete=models.CASCADE)
+    name = models.CharField(max_length=200)
+    artist = models.CharField(max_length=200)
+    album = models.CharField(max_length=200)
+    spotify_id = models.CharField(max_length=30)
+
