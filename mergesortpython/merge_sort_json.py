@@ -56,33 +56,30 @@ def sort(playlist, l, r):
 	
 	merge(playlist, l, m, r)
 
-#def sort(playlist, l, r):
-#	if l < r:
-#		m = (l+(r-1))//2
-#		sort(playlist, l, m)
-#		sort(playlist, m+1, r)
-#		merge(playlist, l, m, r)
 
-def read_json(songs):
-	with open(songs) as file:
-		data = json.load(file)
-	curr_p = data["playlist"][0]["tracks"]
-	return curr_p
+def read_json():
+	with open('tracks.json') as json_file:
+		data = json.load(json_file)
+		item = data.get('tracks')
+		print(item)
+		album = item['album']
 
 #Driver code/test code
 #playlist = ["dont take the money", "wild heart", "Gladiator", "uptown funk", "riptide",
 #	"Brother", "Jackie and Wilson", "About Love", "Sleep on the floor"]
 playlist = ["hello", "cut my lip", "brother", "nina cried power", "talk"]
+
+#songs = 'tracks.json'
+read_json()
 n = len(playlist)
-songs = "songs.json"
-p = read_json(songs)
-t = len(p)
+
 print("Original:")
 print("\n")
 for i in playlist:
 	print(i)
-sort(playlist, 0, n-1)
-#sort(p, 0, t-1)
+
+#sort(playlist, 0, n-1)
+
 print("\n")
 print("Sorted:")
 print("\n")
