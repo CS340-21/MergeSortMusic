@@ -57,7 +57,8 @@ def merge_list(playlist, l, m, r, matchUps, worstCase):
 			i += 1
 		k += 1
 
-	#Fill the playlist with the rest of the values in L and R to be sorted in the next iteration of the while loop
+	#Fill the playlist with the rest of the values in L and R to be sorted in the next iteration of the while loop.
+	#IF YOU WANT TO SAVE THE PLAYLIST STATE THEN SAVE IT AFTER THESE WHILE LOOPS
 	while i < n1:
 		playlist[k] = L[i]
 		i += 1
