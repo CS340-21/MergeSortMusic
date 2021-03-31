@@ -1,6 +1,6 @@
 import React from "react";
 import { useHistory } from "react-router-dom";
-//import axios from 'axios';
+import axios from 'axios';
 
 import {
   Button,
@@ -34,7 +34,7 @@ export default function LoginDialog(props) {
   const handleClose = () => {
     setOpen(false);
   };
-  /*
+  
   const handleSignUp = () => {
     axios.post('http://127.0.0.1:8000/login/', user)
     setOpen(false);
@@ -56,7 +56,7 @@ export default function LoginDialog(props) {
     }
   });
   };
-*/
+
   return (
     <div>
       <ListItem
