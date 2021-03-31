@@ -1,19 +1,22 @@
-import React from 'react';
-import axios from 'axios';
-import Button from '@material-ui/core/Button';
-import TextField from '@material-ui/core/TextField';
-import AccountBoxIcon from '@material-ui/icons/AccountBox';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemText from '@material-ui/core/ListItemText';
-import Dialog from '@material-ui/core/Dialog';
-import DialogActions from '@material-ui/core/DialogActions';
-import DialogContent from '@material-ui/core/DialogContent';
-import DialogContentText from '@material-ui/core/DialogContentText';
-import DialogTitle from '@material-ui/core/DialogTitle';
+import React from "react";
 import { useHistory } from "react-router-dom";
+//import axios from 'axios';
 
-import './LoginDialog.css'
-import './Navbar.js'
+import {
+  Button,
+  TextField,
+  ListItem,
+  ListItemText,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogContentText,
+  DialogTitle,
+} from "@material-ui/core";
+
+import AccountBoxIcon from '@material-ui/icons/AccountBox';
+
+import "./Navbar.js";
 
 export default function LoginDialog(props) {
   const [open, setOpen] = React.useState(false);
@@ -23,7 +26,7 @@ export default function LoginDialog(props) {
   const user = {
     username: username,
     password: password,
-  }
+  };
   const handleClickOpen = () => {
     setOpen(true);
   };
@@ -31,7 +34,7 @@ export default function LoginDialog(props) {
   const handleClose = () => {
     setOpen(false);
   };
-  
+  /*
   const handleSignUp = () => {
     axios.post('http://127.0.0.1:8000/login/', user)
     setOpen(false);
@@ -53,33 +56,33 @@ export default function LoginDialog(props) {
     }
   });
   };
-
+*/
   return (
     <div>
-      <ListItem 
-        button 
-        key={"Login of Create Account"} 
+      <ListItem
+        button
+        key={"Login of Create Account"}
         onClick={handleClickOpen}
-        style={{color: "black"}}
-        >
+        style={{ color: "black" }}
+      >
         <ListItemText primary={"Login or Create Account"} />
         <AccountBoxIcon />
       </ListItem>
 
-      <Dialog 
-        open={open} 
-        onClose={handleClose} 
+      <Dialog
+        open={open}
+        onClose={handleClose}
         aria-labelledby="form-dialog-title"
         PaperProps={{
           style: {
-            backgroundColor: 'white',
+            backgroundColor: "#fff",
           },
         }}
-        >
+      >
         <DialogTitle id="form-dialog-title">Login or Sign Up</DialogTitle>
         <DialogContent>
           <DialogContentText>
-              Thanks for using Merge Sort Music!
+            Thanks for using Merge Sort Music!
           </DialogContentText>
           <TextField
             autoFocus
@@ -104,22 +107,19 @@ export default function LoginDialog(props) {
           />
         </DialogContent>
         <DialogActions>
-        <Button
-          onClick={handleLogin.bind(this)}
-          color="black"
-        >
+          <Button
+            //onClick={handleLogin.bind(this)}
+            color="black"
+          >
             Login
           </Button>
           <Button
-            onClick={handleSignUp.bind(this)}
+            //onClick={handleSignUp.bind(this)}
             color="black"
           >
             Sign Up
           </Button>
-          <Button
-            onClick={handleClose}
-            color="black"
-          >
+          <Button onClick={handleClose} color="black">
             Cancel
           </Button>
         </DialogActions>

@@ -1,8 +1,8 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import Button from '@material-ui/core/Button';
-import DialogTitle from '@material-ui/core/DialogTitle';
-import Dialog from '@material-ui/core/Dialog';
+import React from "react";
+import PropTypes from "prop-types";
+import Button from "@material-ui/core/Button";
+import DialogTitle from "@material-ui/core/DialogTitle";
+import Dialog from "@material-ui/core/Dialog";
 
 function SimpleDialog(props) {
   const { onClose, selectedValue, open } = props;
@@ -12,8 +12,14 @@ function SimpleDialog(props) {
   };
 
   return (
-    <Dialog onClose={handleClose} aria-labelledby="simple-dialog-title" open={open}>
-      <DialogTitle id="simple-dialog-title">Here's where they'd import and sort a playlist</DialogTitle>
+    <Dialog
+      onClose={handleClose}
+      aria-labelledby="simple-dialog-title"
+      open={open}
+    >
+      <DialogTitle id="simple-dialog-title">
+        Here's where they'd import and sort a playlist
+      </DialogTitle>
     </Dialog>
   );
 }
@@ -38,14 +44,15 @@ export default function SavedPlaylistsDialog() {
   return (
     <div>
       <Button
-        variant="outlined" 
-        color="primary" 
+        variant="outlined"
+        color="primary"
         onClick={handleClickOpen}
-        style={{minWidth: "15%", 
-                margin: "auto",
-                color: "#222326",
-                backgroundColor: "#1db954",
-              }}
+        style={{
+          minWidth: "15%",
+          margin: "auto",
+          color: "#222326",
+          backgroundColor: "#1db954",
+        }}
       >
         Import Playlist
       </Button>
