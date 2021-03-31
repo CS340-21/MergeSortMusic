@@ -4,7 +4,7 @@ import Navbar from './Components/Navbar';
 import User from './Components/User';
 import { ThemeProvider } from '@material-ui/core';
 import { Switch as MaterialSwitch } from '@material-ui/core';
-import { dark } from './theme.js';
+import { dark } from './theme.js.js';
 
 
 import {BrowserRouter as Router, Route, Switch} from 'react-router-dom'
