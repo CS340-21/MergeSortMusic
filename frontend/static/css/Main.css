@@ -1,0 +1,12 @@
+.main_content_header {
+  text-align: center;
+  color: white;
+  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+}
+
+.main_content_header .title {
+  font-weight: bold;
+  font-style: italic;
+  background-color: transparent;
+  text-shadow: 3px 3px black;
+}
