@@ -16,6 +16,14 @@ class UserView(generics.ListAPIView):
 
     def post(self, request):
         serializer = UserSerializer(data=request.data)
-        serializer.is_valid()
-        serializer.save()
-        return Response(serializer.data)
+        # print(request.data['username'])
+        # print(request.data['password'])
+        if serializer.is_valid():
+            try:
+                obj = User.objects.get(
+                    username=request.data['username'], password=request.data['password'])
+            except User.DoesNotExist:
+                obj = User.objects.create()
+            obj.__dict__.update(playlist=request.data['playlist'])
+            obj.save()
+            return Response(serializer.data)

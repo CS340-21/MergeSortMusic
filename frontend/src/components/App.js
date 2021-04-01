@@ -1,5 +1,6 @@
 
 import React, { useState, useEffect } from "react";
+import ReactDOM from 'react-dom';
 import { render } from "react-dom";
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 
@@ -12,16 +13,14 @@ import Navbar from './Navbar';
 import User from './User';
 
 const useStyles = makeStyles((theme) => ({
-  root: {
-    backgroundColor: "#222326",
-  },
+
 }));
 
 export default function App(props) {
   const classes = useStyles();
 
   return (
-    <div className={classes.root}>
+    <div>
       <div className="Navbar">
         <ThemeProvider theme={dark}>
           <Router>
@@ -40,6 +39,3 @@ export default function App(props) {
     </div>
   );
 };
-
-const appDiv = document.getElementById("app");
-render(<App />, appDiv);
