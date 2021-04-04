@@ -1,0 +1,28 @@
+{
+	"playlist": [ 
+	{
+		"size": "medium",
+		"price": 15.67,
+		"tracks": ["Brother", "About Love", "ABC", "Cherry Wine", "Gladiator"],
+		"extra_cheese": false,
+		"delivery": true,
+		"client": {
+			"name": "Jane Doe",
+			"phone": null,
+			"email": "janedoe@email.com"
+		}
+	},
+	{
+		"size": "small",
+		"price": 6.54,
+		"toppings": null,
+		"extra_cheese": true,
+		"delivery": false,
+		"client": {
+			"name": "Foo Jones",
+			"phone": "556-342-452",
+			"email": null
+		}
+	}
+	]
+}
