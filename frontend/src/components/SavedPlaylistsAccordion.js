@@ -8,6 +8,7 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Button from '@material-ui/core/Button';
 import { dark } from '../theme';
+import SortDialog from './SortDialog';
 
 const useStyles = makeStyles((dark) => ({
   root: {
@@ -34,7 +35,16 @@ const useStyles = makeStyles((dark) => ({
 }));
 
 export default function SimpleAccordion(props) {
+  const [open, setOpen] = React.useState(false);
   const classes = useStyles();
+
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = (value) => {
+    setOpen(false);
+  };
 
   return (
     <div className={classes.root}>
@@ -54,6 +64,7 @@ export default function SimpleAccordion(props) {
           control={
             <Button 
               variant="contained"
+              onClick={handleClickOpen}
               style={{
                 minWidth: "15%", 
                 color: "#222326",
@@ -64,6 +75,7 @@ export default function SimpleAccordion(props) {
             </Button>
           }
           />
+          <SortDialog open={open} onClose={handleClose} />
           <FormControlLabel
           aria-label="Export"
           className={classes.export_button}
