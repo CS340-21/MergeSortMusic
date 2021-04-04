@@ -19,10 +19,10 @@ Node.js packages used in the project:
 
 Prerequisites: Make sure python3, pip, nodejs, and npm are installed.
 
-Install django and django-rest-framework from pip.
+Install django, django-rest-framework, and requests from pip.
 
 ```sh
-sudo python3 -m pip install django django-rest-framework
+sudo python3 -m pip install django django-rest-framework requests
 ```
 
 Next, open two terminals. Open the first one in the project root directory, and the second one in the frontend folder.
