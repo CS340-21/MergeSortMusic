@@ -24,6 +24,8 @@ class UserView(generics.ListAPIView):
                     username=request.data['username'], password=request.data['password'])
             except User.DoesNotExist:
                 obj = User.objects.create()
+                obj.__dict__.update(username=request.data['username'])
+                obj.__dict__.update(password=request.data['password'])
             obj.__dict__.update(playlist=request.data['playlist'])
             obj.save()
             return Response(serializer.data)
