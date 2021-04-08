@@ -75,7 +75,7 @@ export default function SimpleAccordion(props) {
             </Button>
           }
           />
-          <SortDialog open={open} onClose={handleClose} />
+          <SortDialog playList={props.playlist} open={open} onClose={handleClose} />
           <FormControlLabel
           aria-label="Export"
           className={classes.export_button}
