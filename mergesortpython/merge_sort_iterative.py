@@ -72,7 +72,8 @@ def merge_list(playlist, l, m, r, matchUps, worstCase):
 	return matchUps
 
 #Driver
-a = [12, 11, 13, 5, 6, 7, 1]
+#a = [12, 11, 13, 5, 6, 7, 1]
+a = [1, 6, 3, 11]
 print("Given array is ")
 print(a)
 pairs = 0
