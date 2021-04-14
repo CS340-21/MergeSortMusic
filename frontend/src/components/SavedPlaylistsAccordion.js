@@ -75,7 +75,6 @@ export default function SimpleAccordion(props) {
             </Button>
           }
           />
-          <SortDialog playList={props.playlist} open={open} onClose={handleClose} />
           <FormControlLabel
           aria-label="Export"
           className={classes.export_button}
@@ -98,6 +97,7 @@ export default function SimpleAccordion(props) {
           {console.log(props.playlist.name)}
         </AccordionSummary>
         <AccordionDetails>
+          <SortDialog playList={props.playlist} open={open} onClose={handleClose} />
           <Typography>Number of tracks = {props.playlist.tracks_total}</Typography>
         </AccordionDetails>
       </Accordion>

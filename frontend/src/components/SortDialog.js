@@ -8,7 +8,11 @@ import SongCard from './SongCard';
 
 const useStyles = makeStyles({
   root: {
-   'max-width': '100%'
+   'max-width': '100%',
+    flexGrow: 1,
+  },
+  first: {
+    'margin': '0'
   },
 });
 
@@ -41,11 +45,11 @@ export default function SortDialog(props) {
       open={open}
     >
       <DialogTitle id="simple-dialog-title">{playList.name}</DialogTitle>
-      <Grid containter spacing={24}>
-        <Grid item xs={6} className={classes.first} onClick={clickFirst}>
+      <Grid containter xs={12}>
+        <Grid item xs={4} className={classes.first} onClick={clickFirst}>
+          <SongCard></SongCard></Grid>
+        <Grid item xs={4} className={classes.second} onClick={clickSecond}>
           <SongCard></SongCard>
-        </Grid>
-        <Grid item xs={6} className={classes.second} onClick={clickSecond}>
           <SongCard></SongCard>
         </Grid>
       </Grid>
