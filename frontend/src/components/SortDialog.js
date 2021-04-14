@@ -5,14 +5,24 @@ import Dialog from '@material-ui/core/Dialog';
 import { makeStyles } from '@material-ui/core/styles';
 import { Grid } from '@material-ui/core';
 import SongCard from './SongCard';
+import LinearProgress from '@material-ui/core/LinearProgress';
 
 const useStyles = makeStyles({
   root: {
    'max-width': '100%',
-    flexGrow: 1,
+  },
+  dialogTitle:{
+    'text-align': 'center'
   },
   first: {
-    'margin': '0'
+    'text-align': '-webkit-center'
+  },
+  second: {
+    'text-align': '-webkit-center'
+  },
+  grid:{
+    'padding': '20px'
+
   },
 });
 
@@ -40,19 +50,23 @@ export default function SortDialog(props) {
   return (
     <Dialog 
       fullWidth={true}
-      maxWidth={'sm'}
+      maxWidth = {'md'}
       onClose={handleClose}
       open={open}
+      className={classes.Dialog}
     >
-      <DialogTitle id="simple-dialog-title">{playList.name}</DialogTitle>
-      <Grid containter xs={12}>
-        <Grid item xs={4} className={classes.first} onClick={clickFirst}>
-          <SongCard></SongCard></Grid>
-        <Grid item xs={4} className={classes.second} onClick={clickSecond}>
-          <SongCard></SongCard>
-          <SongCard></SongCard>
+      <DialogTitle className={classes.dialogTitle} id="simple-dialog-title">{playList.name}</DialogTitle>
+      <Grid container spacing={1} className={classes.grid}>
+        <Grid container item xs={12} spacing={0}>
+          <Grid item xs={6} className={classes.first} onClick={clickFirst}>
+            <SongCard></SongCard>
+          </Grid>
+          <Grid item xs={6} className={classes.second} onClick={clickSecond}>
+            <SongCard></SongCard>
+          </Grid>
         </Grid>
       </Grid>
+      <LinearProgress variant="buffer" value={20} valueBuffer={100} />
     </Dialog>
   );
 }
