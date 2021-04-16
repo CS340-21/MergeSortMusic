@@ -8,10 +8,15 @@ import {
   Divider,
 } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
+import Button from '@material-ui/core/Button';
 
 const useStyles = makeStyles((theme) => ({
   card: {
     maxWidth: 350,
+  },
+  table: {
+    marginRight: "auto",
+    marginLeft: "auto",
   },
   tabledata: {
     padding: 20,
@@ -96,7 +101,7 @@ const Main = (props) => {
             </td>
             <td className={classes.tabledata}>
               <Card className={classes.card}>
-                <CardActionArea>
+                <CardActionArea> 
                   <CardMedia
                     component="img"
                     alt="John Carmack"
@@ -110,9 +115,13 @@ const Main = (props) => {
                     <Typography gutterBottom variant="h5" component="h2">
                       John Carmack
                     </Typography>
-                    <Typography component="p">
-                      Stuff about John Carmack
-                    </Typography>
+                    <Button 
+                      size="small" 
+                      color="primary" 
+                      href="https://pokemonpower92.github.io/portfolio/"
+                    >
+                      Personal Site
+                    </Button>
                   </CardContent>
                 </CardActionArea>
               </Card>

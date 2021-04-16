@@ -4,7 +4,7 @@ import ReactDOM from 'react-dom';
 import { render } from "react-dom";
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 
-import { ThemeProvider, Switch as MaterialSwitch } from '@material-ui/core';
+import { ThemeProvider } from '@material-ui/core';
 import { makeStyles } from "@material-ui/core/styles";
 import { dark } from '../theme.js';
 
@@ -25,8 +25,6 @@ export default function App(props) {
         <ThemeProvider theme={dark}>
           <Router>
             <Navbar></Navbar>
-            <MaterialSwitch>
-            </MaterialSwitch>
             <Switch>
               <Route path="/user" component={User} />
               <Route path="/">

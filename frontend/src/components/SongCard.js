@@ -53,10 +53,7 @@ export default function SongCard(props) {
       </CardActionArea>
       <CardActions>
         <Button size="small" color="primary">
-          Share
-        </Button>
-        <Button size="small" color="primary">
-          Learn More
+          This is where the player will go.
         </Button>
       </CardActions>
     </Card>
