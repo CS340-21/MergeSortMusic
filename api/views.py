@@ -191,3 +191,19 @@ class DeleteSortInstance(APIView):
             return Response({}, status.HTTP_204_NO_CONTENT)
 
         return Response({'Nothing to Delete': 'Specified sort instance not found.'}, status=status.HTTP_404_NOT_FOUND)
+
+
+class GetTracks(APIView):
+    serializer_class = SortInstanceSerializer
+
+    def get(self, request, format=None):
+        if not self.request.session.exists(self.request.session.session_key):
+            self.request.session.create()
+
+        sort_instances = SortInstance.objects.filter(
+            user=self.request.session.session_key)
+        if sort_instances:
+            data = SortInstanceSerializer(sort_instances, many=True).data
+            return Response(data, status=status.HTTP_200_OK)
+
+        return Response({'Sort Instances Not Found': 'No sort instances found for this session.'}, status=status.HTTP_404_NOT_FOUND)
