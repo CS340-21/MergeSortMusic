@@ -36,4 +36,5 @@ class Song(models.Model):
     artist = models.CharField(max_length=200)
     album = models.CharField(max_length=200)
     spotify_id = models.CharField(max_length=30)
+    value = models.IntegerField(null=False, default=1)
 

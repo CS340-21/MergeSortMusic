@@ -12,6 +12,6 @@ urlpatterns = [
     path('import-playlist/<str:playlist_id>', ImportPlaylist.as_view()),
     path('get-sort-instances', GetSortInstances.as_view()),
     path('delete-all-sort-instances', DeleteAllSortInstances.as_view()),
-    path('delete-sort-instance/<str:si_id>', DeleteSortInstance.as_view())
+    path('delete-sort-instance/<str:si_id>', DeleteSortInstance.as_view()),
     path('get-tracks/<str:si_id>', GetTracks.as_view())
 ]
