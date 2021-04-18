@@ -194,7 +194,7 @@ class DeleteSortInstance(APIView):
 
 
 class GetTracks(APIView):
-    serializer_class = TracksSerializer
+    serializer_class = TrackSerializer
 
     def get(self, request, si_id, format=None):
         if not self.request.session.exists(self.request.session.session_key):
@@ -203,7 +203,7 @@ class GetTracks(APIView):
         si = SortInstance.objects.get(id=si_id)
         tracks = Song.objects.filter(sort_instance=si)
         if tracks:
-            data = TracksSerializer(sort_instances, many=True).data
+            data = TrackSerializer(tracks, many=True).data
             return Response(data, status=status.HTTP_200_OK)
 
-        return Response({'Sort Instances Not Found': 'No sort instances found for this session.'}, status=status.HTTP_404_NOT_FOUND)
+        return Response({'Tracks Not Found': 'No tracks found for this session.'}, status=status.HTTP_404_NOT_FOUND)

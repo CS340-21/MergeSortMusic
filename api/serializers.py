@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Room, SortInstance
+from .models import Room, SortInstance, Song
 
 
 class RoomSerializer(serializers.ModelSerializer):
@@ -28,3 +28,8 @@ class SortInstanceSerializer(serializers.ModelSerializer):
         model = SortInstance
         fields = ('id', 'title', 'num_songs')
 
+
+class TrackSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Song
+        fields = ('id', 'name', 'artist', 'album', 'spotify_id', 'value')
