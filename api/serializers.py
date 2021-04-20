@@ -1,26 +1,5 @@
 from rest_framework import serializers
-from .models import Room, SortInstance
-
-
-class RoomSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Room
-        fields = ('id', 'code', 'host', 'guest_can_pause',
-                  'votes_to_skip', 'created_at')
-
-
-class CreateRoomSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Room
-        fields = ('guest_can_pause', 'votes_to_skip')
-
-
-class UpdateRoomSerializer(serializers.ModelSerializer):
-    code = serializers.CharField(validators=[])
-
-    class Meta:
-        model = Room
-        fields = ('guest_can_pause', 'votes_to_skip', 'code')
+from .models import SortInstance, PlaylistItems
 
 
 class SortInstanceSerializer(serializers.ModelSerializer):
@@ -28,3 +7,8 @@ class SortInstanceSerializer(serializers.ModelSerializer):
         model = SortInstance
         fields = ('id', 'title', 'num_songs')
 
+
+class PlaylistInfoSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = PlaylistItems
+        fields = ['playlist_id', 'items']

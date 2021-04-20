@@ -23,16 +23,12 @@ const useStyles = makeStyles((theme) => ({
 
 const User = (props) => {
   const classes = useStyles();
-  const [playlistNames, setPlaylistNames] = useState([{
-    "playlist_id": "2YIFpL23PcC0AT87P6FbLV",
-    "name": "Liked from Radio",
-    "tracks_total": 8
-  }]);
-  //const [playlistNames, setPlaylistNames] = useState(props.location.state.playlist);
+  //const [playlistNames, setPlaylistNames] = useState([]);
+  const [playlistNames, setPlaylistNames] = useState(props.location.state.playlist);
   //const username = props.location.state.username;
   //const password = props.location.state.password;
-  const username = "props.location.state.username";
-  const password = "props.location.state.password";
+  const username = props.location.state.username;
+  const password = props.location.state.password;
 
   return (
     <div>

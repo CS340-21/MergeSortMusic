@@ -9,6 +9,7 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Button from '@material-ui/core/Button';
 import { dark } from '../theme';
 import SortDialog from './SortDialog';
+import axios from 'axios';
 
 const useStyles = makeStyles((dark) => ({
   root: {
@@ -36,10 +37,23 @@ const useStyles = makeStyles((dark) => ({
 
 export default function SimpleAccordion(props) {
   const [open, setOpen] = React.useState(false);
+  const [tracks, setTracks] = React.useState([]);
+  const [data, setData] = React.useState([]);
+
   const classes = useStyles();
 
   const handleClickOpen = () => {
-    setOpen(true);
+    const fetchData = async () => {
+      var url = 'http://127.0.0.1:8000/api/playlist-info/'
+      url = url.concat(props.playlist.playlist_id)
+      const result = await axios(url);
+      setData(result.data[0]['items'])
+      console.log(result.data[0]['items'])
+      setTracks(result.data[0]['items']['tracks']);
+      setOpen(true);
+    };
+    fetchData();
+    //setOpen(true);
   };
 
   const handleClose = (value) => {
@@ -97,7 +111,7 @@ export default function SimpleAccordion(props) {
           {console.log(props.playlist.name)}
         </AccordionSummary>
         <AccordionDetails>
-          <SortDialog playList={props.playlist} open={open} onClose={handleClose} />
+          <SortDialog data={data} setData={setData} tracks={tracks} setTracks={setTracks} playList={props.playlist} open={open} onClose={handleClose} />
           <Typography>Number of tracks = {props.playlist.tracks_total}</Typography>
         </AccordionDetails>
       </Accordion>

@@ -143,6 +143,7 @@ def get_playlist_info(self, playlist_id):
             'artist': artist_string,
             'track_id': item.get('track').get('id'),
             'track_name': item.get('track').get('name'),
+            'image_300': item.get('track').get('album').get('images')[1].get('url')
         }
         tracks.append(track)
 

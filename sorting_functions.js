@@ -19,7 +19,6 @@ function mergesort(playlist){
                         matchups = merge(playlist, temp, frm, mid, to, matchups, worstCase);
                 }
         }
-
 }
 
 function merge(playlist, temp, frm, mid, to, matchups, worstCase){

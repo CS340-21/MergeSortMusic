@@ -7,7 +7,6 @@ import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
-import Lucy from '../img/Lucy.jpg';
 
 const useStyles = makeStyles({
   root: {
@@ -21,14 +20,11 @@ const useStyles = makeStyles({
 
 export default function SongCard(props) {
   const classes = useStyles();
-  // We'll pass this down with backend shit. 
-  //const { albumArt, artistName, songName } = props;
-
   // For now the song is just an object. 
   const song = {
-      "songName"  : "Lucy",
-      "artistName": "Still Woozy",
-      "albumArt"  : Lucy,
+      "songName"  : props.song['track_name'],
+      "artistName": props.song['artist'],
+      "albumArt"  : props.song['image_300'],
   }
 
   return (
@@ -36,7 +32,7 @@ export default function SongCard(props) {
       <CardActionArea>
         <CardMedia
           className={classes.media}
-          image={Lucy}
+          image={song.albumArt}
           title="Contemplative Reptile"
         />
         <CardContent>

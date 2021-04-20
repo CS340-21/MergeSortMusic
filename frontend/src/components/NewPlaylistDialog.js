@@ -69,10 +69,24 @@ export default function NewPlaylistDialog(props) {
     }
     possibleImportPlaylist.forEach((playlist) => {
       user.playlist.push(playlist)
+      var url = 'http://127.0.0.1:8000/spotify/get-playlist-info/'
+      url = url.concat(playlist['playlist_id'])
+      console.log(url)
+      fetch(url).then(response => response.json()).then((data) => {
+        console.log(data['id'])
+        var item = {
+          playlist_id: data['id'],
+          items: data
+        }
+        var api_url = 'http://127.0.0.1:8000/api/playlist-info/'
+        api_url = api_url.concat(playlist['playlist_id'])
+        axios.post(api_url, item)
+      });
     });
     axios.post('http://127.0.0.1:8000/login/', user).then(()=> {
       props.setPlaylist(user.playlist);
     });
+
   }
 
   const addPossiblePlaylist = (playlist) => {

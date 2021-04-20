@@ -1,4 +1,5 @@
-import React from 'react';
+import React, {useState, useEffect, useLayoutEffect} from 'react';
+import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Dialog from '@material-ui/core/Dialog';
@@ -9,6 +10,7 @@ import Fade from '@material-ui/core/Fade';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Switch from '@material-ui/core/Switch';
 import LinearProgress from '@material-ui/core/LinearProgress';
+import axios from 'axios';
 
 const useStyles = makeStyles({
   root: {
@@ -32,31 +34,71 @@ const useStyles = makeStyles({
 export default function SortDialog(props) {
   const classes = useStyles();
   const { onClose, selectedValue, open, playList } = props;
-  const [ selected, setSelected ] = React.useState(false);
-  const short = 1000;
-  const long  = 2000;
-  let first  = short;
-  let second = long;
+  const [ selected, setSelected ] = useState(false);
+  const [ new_order, setNewOrder ] = useState([]);
+  var rem_tracks = props.tracks
+
+  useEffect(() => {
+    setSelected(false)
+  }, [selected]);
+
 
   const handleClose = () => {
+    //post to web api then reset new_order
+    var new_item = props.data
+    new_item['tracks'] = new_order
+    var item = {
+      playlist_id: playList.playlist_id,
+      items: new_item
+    }
+    var api_url = 'http://127.0.0.1:8000/api/playlist-info/'
+    api_url = api_url.concat(playList.playlist_id)
+    axios.post(api_url, item)
+
+    setNewOrder([]);
     onClose(selectedValue);
   };
 
   const clickFirst = () => {
-    setSelected((prev) => !prev);
-    first  = long;
-    second = short;
+      var temp = rem_tracks.splice(0, 1)
+      var temp2 = new_order
+      temp2.push(temp[0])
+      setNewOrder(temp2)
+      console.log(new_order)
+    if(rem_tracks.length == 1){
+      var temp = rem_tracks.splice(0, 1)
+      var temp2 = new_order
+      temp2.push(temp[0])
+      setNewOrder(temp2)
+      console.log("only 2 track left",rem_tracks.length , new_order)
+      handleClose();
+      setSelected(true)
+    }
+    else{
+      setSelected(true)
+    }
   }
 
   const clickSecond = () => {
-    setSelected((prev) => !prev);
-    first  = short;
-    second = long;
+    var temp = rem_tracks.splice(1, 1)
+    var temp2 = new_order
+    temp2.push(temp[0])
+    setNewOrder(temp2)
+    console.log(new_order)
+    if(rem_tracks.length == 1){
+      var temp = rem_tracks.splice(0, 1)
+      var temp2 = new_order
+      temp2.push(temp[0])
+      setNewOrder(temp2)
+      console.log("only 2 track left",rem_tracks.length , new_order)
+      handleClose();
+      setSelected(true)
+    }
+    else{
+      setSelected(true)
+    }
   }
 
-  const handleChange = () => {
-    setSelected((prev) => !prev);
-  }
   // Right now clicking on the grid item triggers the click
   // even for tracking which card was selected in the sort. 
   // I think that does need to change to SongCard, because
@@ -73,26 +115,17 @@ export default function SortDialog(props) {
     >
     <DialogTitle className={classes.dialogTitle} id="simple-dialog-title">{playList.name}</DialogTitle>
      <DialogContent style={{ overflow: "hidden"}}>
-     <FormControlLabel
-        control={<Switch selected={selected} onChange={handleChange} />}
-        label="Show"
-      />
         <Grid container spacing={1} className={classes.grid}>
           <Grid container item xs={12} spacing={0}>
-            <Fade in={selected} timeout={first}>
-              <Grid item xs={6} className={classes.first} onClick={clickFirst}>
-                
-                  <SongCard></SongCard>
-                
-              </Grid>
-            </Fade>
-            <Fade in={selected} timeout={second}>
-              <Grid item xs={6} className={classes.first} onClick={clickSecond}>
-                
-                  <SongCard></SongCard>
-                
-              </Grid>
-            </Fade>
+            
+            <Grid item xs={6} className={classes.first} onClick={clickFirst}>
+                { props.tracks.length >= 1 &&
+                <SongCard song={props.tracks[0]}></SongCard>}
+            </Grid>
+            <Grid item xs={6} className={classes.first} onClick={clickSecond}>   
+                { props.tracks.length >= 2 &&
+                  <SongCard song={props.tracks[1]}></SongCard>}
+            </Grid>
           </Grid>
         </Grid>
         <LinearProgress variant="buffer" value={20} valueBuffer={100} />
