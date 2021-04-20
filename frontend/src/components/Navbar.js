@@ -67,7 +67,7 @@ export default function Navbar() {
               variant="h6"
               className={classes.title}
             >
-              Merge Song Sort
+              Merge Sort Music
             </Typography>
             <div className={classes.flexGrow}></div>
             <LoginDialog

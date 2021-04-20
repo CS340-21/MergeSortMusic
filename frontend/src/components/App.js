@@ -1,23 +1,13 @@
-
-import React, { useState, useEffect } from "react";
-import ReactDOM from 'react-dom';
-import { render } from "react-dom";
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 
 import { ThemeProvider } from '@material-ui/core';
-import { makeStyles } from "@material-ui/core/styles";
 import { dark } from '../theme.js';
 
 import Main from './Main';
 import Navbar from './Navbar';
 import User from './User';
 
-const useStyles = makeStyles((theme) => ({
-
-}));
-
-export default function App(props) {
-  const classes = useStyles();
+export default function App() {
 
   return (
     <div>
