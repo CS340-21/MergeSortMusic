@@ -1,5 +1,5 @@
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
-
+import React from "react";
 import { ThemeProvider } from '@material-ui/core';
 import { dark } from '../theme.js';
 

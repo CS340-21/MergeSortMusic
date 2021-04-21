@@ -9,7 +9,7 @@ from .util import *
 
 class AuthURL(APIView):
     def get(self, request, fornat=None):
-        scopes = 'user-read-playback-state user-modify-playback-state user-read-currently-playing'
+        scopes = 'user-read-playback-state user-modify-playback-state user-read-currently-playing playlist-modify-public playlist-modify-private'
 
         url = Request('GET', 'https://accounts.spotify.com/authorize', params={
             'scope': scopes,
@@ -94,3 +94,12 @@ class GetPlaylistInfo(APIView):
             return Response({}, status=status.HTTP_204_NO_CONTENT)
         else:
             return Response(playlist_info, status=status.HTTP_200_OK)
+
+
+class PutPlaylistInfo(APIView):
+    def put(self, request, playlist_id, insert_before, range_length, range_start, format=None):
+        print(playlist_id, insert_before, range_length, range_start)
+        print("------------------------------------------------------------")
+        response = put_playlist_info(self, playlist_id, insert_before,
+                                     range_length, range_start)
+        return Response({}, status=response.status_code)

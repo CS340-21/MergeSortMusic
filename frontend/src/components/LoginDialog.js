@@ -63,8 +63,8 @@ export default function LoginDialog(props) {
       props.setUserPage(true);
       user.playlist = result[0].playlist
 
-      console.log(user.playlist)
-      console.log(playlist)
+      //console.log(user.playlist)
+      //console.log(playlist)
       history.push({
         pathname: '/user',
         state: { username: user.username, password: user.password, playlist: user.playlist}

@@ -36,6 +36,9 @@ const useStyles = makeStyles((theme) => ({
   },
   John: {
     marginTop: 285,
+  },
+  Shrey: {
+    marginTop: 185,
   }
 }));
 
@@ -81,8 +84,12 @@ const Main = (props) => {
                     He enjoys running, and cooking. His areas of interest include Machine Learning and Cryptography.
                     He has prior experience designing websites using HTML, CSS, Javascript and React. 
                     Through this project he hopes to gain meaningful experience in Bootstrap, 
-                    Django and other frameworks.
-                    </Typography>
+                    Django and other frameworks.</Typography>
+                    <Button 
+                      size="small" 
+                      color="primary" 
+                      href="https://github.com/spatel912020"
+                      className={classes.Shrey}>Github</Button>
                   </CardContent>
                 </CardActionArea>
               </Card>

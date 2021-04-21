@@ -48,12 +48,48 @@ export default function SimpleAccordion(props) {
       url = url.concat(props.playlist.playlist_id)
       const result = await axios(url);
       setData(result.data[0]['items'])
-      console.log(result.data[0]['items'])
+      //console.log(result.data[0]['items'])
       setTracks(result.data[0]['items']['tracks']);
       setOpen(true);
     };
     fetchData();
     //setOpen(true);
+  };
+
+  const handleExport = () => {
+    const fetchData = async () => {
+      var url = 'http://127.0.0.1:8000/api/playlist-info/'
+      url = url.concat(props.playlist.playlist_id)
+      const result = await axios(url);
+      const tracks = result.data[0]['items']['tracks']
+      var p1 = new Promise((resolve, reject) => {
+        tracks.forEach((cur_track, index) => {
+          var url = 'http://127.0.0.1:8000/spotify/rearrange-playlist/'
+          url = url.concat(props.playlist.playlist_id)
+          url = url.concat("/", index)
+          url = url.concat("/", "1")
+          url = url.concat("/", cur_track['sort_order'])
+          axios.put(url)
+        })
+        resolve('Finished!');
+      });
+      p1.then(value =>{
+        console.log(value)
+        var url = 'http://127.0.0.1:8000/spotify/get-playlist-info/'
+        url = url.concat(props.playlist.playlist_id)
+        fetch(url).then(response => response.json()).then((data) => {
+          var item = {
+            playlist_id: data['id'],
+            items: data
+          }
+          var api_url = 'http://127.0.0.1:8000/api/playlist-info/'
+          api_url = api_url.concat(props.playlist.playlist_id)
+          axios.post(api_url, item)
+        });
+      }, reason => {console.error(reason)});
+
+    };
+    fetchData();
   };
 
   const handleClose = (value) => {
@@ -97,6 +133,7 @@ export default function SimpleAccordion(props) {
           control={
             <Button 
               variant="contained"
+              onClick={handleExport}
               style={{
                 minWidth: "15%", 
                 color: "#222326",
@@ -108,7 +145,8 @@ export default function SimpleAccordion(props) {
           }
           />
           <Typography className={classes.heading}>{props.playlist.name}</Typography>
-          {console.log(props.playlist.name)}
+          {//console.log(props.playlist.name)
+          }
         </AccordionSummary>
         <AccordionDetails>
           <SortDialog data={data} setData={setData} tracks={tracks} setTracks={setTracks} playList={props.playlist} open={open} onClose={handleClose} />

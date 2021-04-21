@@ -90,7 +90,7 @@ class PlaylistInfo(generics.ListAPIView):
             playlist = None
 
         serializer = PlaylistInfoSerializer(data=request.data)
-        print(request.data)
+        # print(request.data)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data)

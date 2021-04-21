@@ -3,6 +3,7 @@ from django.utils import timezone
 from datetime import timedelta
 from .credentials import CLIENT_ID, CLIENT_SECRET
 from requests import post, put, get
+import json
 
 
 BASE_URL_ME = "https://api.spotify.com/v1/me/"
@@ -130,6 +131,7 @@ def get_playlist_info(self, playlist_id):
 
     # Collect playlist information into a list.
     tracks = []
+    sort_order = 0
     for item in items:
         artist_string = ""
         for i, artist in enumerate(item.get('track').get('artists')):
@@ -143,9 +145,11 @@ def get_playlist_info(self, playlist_id):
             'artist': artist_string,
             'track_id': item.get('track').get('id'),
             'track_name': item.get('track').get('name'),
-            'image_300': item.get('track').get('album').get('images')[1].get('url')
+            'image_300': item.get('track').get('album').get('images')[1].get('url'),
+            'sort_order': sort_order
         }
         tracks.append(track)
+        sort_order = sort_order+1
 
     playlist = {
         'id': response.get('id'),
@@ -155,3 +159,24 @@ def get_playlist_info(self, playlist_id):
     }
 
     return playlist
+
+
+def put_playlist_info(self, playlist_id, insert_before, range_length, range_start):
+    host = self.request.session.session_key
+    tokens = get_user_tokens(host)
+    headers = {'Content-Type': 'application/json',
+               'Authorization': "Bearer " + tokens.access_token}
+    endpoint = f'playlists/{playlist_id}/tracks'
+    request_payload = json.dumps({
+        "range_start": range_start,
+        "insert_before": insert_before,
+        "range_length": range_length
+    })
+
+    response = put(BASE_URL_GEN + endpoint,
+                   headers=headers, data=request_payload)
+    print(response)
+    try:
+        return response
+    except:
+        return {'Error': 'Issue with request'}

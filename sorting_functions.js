@@ -11,12 +11,14 @@ function mergesort(playlist){
         var frm;
         var mid;
         var to;
+        console.log("hello")
         for(m = 1; m <= high - low; m = 2*m){
                 for(i = low; i < high; i = i + (m * 2)){
                         frm = i;
                         mid = i + m - 1;
                         to = Math.min(i + (2 * m) - 1, high);
                         matchups = merge(playlist, temp, frm, mid, to, matchups, worstCase);
+                        console.log(matchups)
                 }
         }
 }
@@ -58,3 +60,6 @@ function merge(playlist, temp, frm, mid, to, matchups, worstCase){
         return matchups;
 
 }
+
+var playlist = ["hello","bye","why", "look", "here", "there"]
+mergesort(playlist)
