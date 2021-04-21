@@ -44,19 +44,26 @@ export default function SortDialog(props) {
 
 
   const handleClose = () => {
-    //post to web api then reset new_order
-    var new_item = props.data
-    new_item['tracks'] = new_order
-    var item = {
-      playlist_id: playList.playlist_id,
-      items: new_item
-    }
-    var api_url = 'http://127.0.0.1:8000/api/playlist-info/'
-    api_url = api_url.concat(playList.playlist_id)
-    axios.post(api_url, item)
+      //post to web api then reset new_order
+    if(props.tracks.length == 0){
+      var new_item = props.data
+      new_item['tracks'] = new_order
+      props.setTracks(new_order)
+      var item = {
+        playlist_id: playList.playlist_id,
+        items: new_item
+      }
+      var api_url = 'http://127.0.0.1:8000/api/playlist-info/'
+      api_url = api_url.concat(playList.playlist_id)
+      axios.post(api_url, item)
 
-    setNewOrder([]);
-    onClose(selectedValue);
+      setNewOrder([]);
+      onClose(selectedValue);
+    }
+    else{
+      //setNewOrder([]);
+      onClose(selectedValue);
+    }
   };
 
   const clickFirst = () => {
@@ -98,13 +105,7 @@ export default function SortDialog(props) {
       setSelected(true)
     }
   }
-
-  // Right now clicking on the grid item triggers the click
-  // even for tracking which card was selected in the sort. 
-  // I think that does need to change to SongCard, because
-  // right now if they go to click the spotify player it'll 
-  // just select 
-  // that song as the best. 
+ 
   return (
     <Dialog 
       fullWidth={true}

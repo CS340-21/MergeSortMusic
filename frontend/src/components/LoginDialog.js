@@ -104,7 +104,7 @@ export default function LoginDialog(props) {
             autoFocus
             margin="dense"
             id="name"
-            label="Email Address"
+            label="Username"
             type="email"
             required="true"
             fullWidth

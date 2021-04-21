@@ -37,7 +37,7 @@ const useStyles = makeStyles((dark) => ({
 
 export default function SimpleAccordion(props) {
   const [open, setOpen] = React.useState(false);
-  const [tracks, setTracks] = React.useState([]);
+  const [tracks, setTracks] = React.useState([])
   const [data, setData] = React.useState([]);
 
   const classes = useStyles();
@@ -62,6 +62,7 @@ export default function SimpleAccordion(props) {
       url = url.concat(props.playlist.playlist_id)
       const result = await axios(url);
       const tracks = result.data[0]['items']['tracks']
+      setTracks(tracks)
       var p1 = new Promise((resolve, reject) => {
         tracks.forEach((cur_track, index) => {
           var url = 'http://127.0.0.1:8000/spotify/rearrange-playlist/'
@@ -70,8 +71,10 @@ export default function SimpleAccordion(props) {
           url = url.concat("/", "1")
           url = url.concat("/", cur_track['sort_order'])
           axios.put(url)
+          setTimeout(function(){},1000)
+    
         })
-        resolve('Finished!');
+        setTimeout(function(){ resolve('Finished!'); },3000)
       });
       p1.then(value =>{
         console.log(value)
@@ -85,6 +88,7 @@ export default function SimpleAccordion(props) {
           var api_url = 'http://127.0.0.1:8000/api/playlist-info/'
           api_url = api_url.concat(props.playlist.playlist_id)
           axios.post(api_url, item)
+          console.log(value, item)
         });
       }, reason => {console.error(reason)});
 
@@ -152,6 +156,11 @@ export default function SimpleAccordion(props) {
           <SortDialog data={data} setData={setData} tracks={tracks} setTracks={setTracks} playList={props.playlist} open={open} onClose={handleClose} />
           <Typography>Number of tracks = {props.playlist.tracks_total}</Typography>
         </AccordionDetails>
+        {tracks.length !== 0 && tracks.map((track, index) => {
+        return <AccordionDetails>
+            <Typography align="left">{index+1}. {track['track_name']}</Typography>
+        </AccordionDetails>
+        })}
       </Accordion>
     </div>
   );
