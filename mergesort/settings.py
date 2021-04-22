@@ -39,7 +39,19 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'api.apps.ApiConfig',
+#django rest framework
     'rest_framework',
+    'rest_framework.authtoken',
+    'rest_auth',
+#for social login
+    'django.contrib.sites',
+    'allauth',
+    'allauth.account',
+    'rest_auth.registration',
+    'allauth.socialaccount',
+    'allauth.socialaccount.providers.facebook',
+    'allauth.socialaccount.providers.google',
+#custom
     'frontend.apps.FrontendConfig',
     'spotify.apps.SpotifyConfig',
     'users.apps.UsersConfig'
@@ -134,3 +146,5 @@ REST_FRAMEWORK = {'DEFAULT_PERMISSION_CLASSES': [
     'rest_framework.permissions.AllowAny']}
 
 CSRF_COOKIE_NAME = "csrftoken"
+
+SITE_ID = 1
