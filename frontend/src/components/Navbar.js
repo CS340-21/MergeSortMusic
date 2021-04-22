@@ -14,6 +14,9 @@ import PersonIcon from '@material-ui/icons/Person';
 import { makeStyles } from "@material-ui/core/styles";
 
 import LoginDialog from "./LoginDialog";
+import axios from "axios";
+import GoogleLogin from 'react-google-login';
+
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -57,6 +60,21 @@ export default function Navbar() {
     setAnchorEl(null);
     setUserPage(false);
   };
+  const googleLogin = async (accesstoken) => {
+    let res = await axios.post(
+      "http://localhost:8000/google/",
+      {
+        access_token: accesstoken,
+      }
+    );
+    console.log(res);
+    return await res.status;
+  };
+  const responseGoogle = async(response) => {
+    let googleResponse  = await googleLogin(response.accessToken)
+    console.log(googleResponse);
+    console.log(response);
+  };
 
   useEffect(() => {
     if(location['pathname'] === '/user'){
@@ -82,6 +100,12 @@ export default function Navbar() {
               isUserPage={isUserPage}
               setUserPage={setUserPage}
             ></LoginDialog>
+            <GoogleLogin
+              clientId="851712331566-q3km79mgo7jpkcf7g6unvl33bkg2ndlk.apps.googleusercontent.com"
+              buttonText="LOGIN WITH GOOGLE"
+              onSuccess={responseGoogle}
+              onFailure={responseGoogle}
+            />
           </Toolbar>
         </AppBar>
       </div>
