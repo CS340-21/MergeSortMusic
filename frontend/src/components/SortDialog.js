@@ -121,11 +121,11 @@ export default function SortDialog(props) {
             
             <Grid item xs={6} className={classes.first} onClick={clickFirst}>
                 { props.tracks.length >= 1 &&
-                <SongCard song={props.tracks[0]}></SongCard>}
+                <SongCard key ={1} song={props.tracks[0]}></SongCard>}
             </Grid>
             <Grid item xs={6} className={classes.first} onClick={clickSecond}>   
                 { props.tracks.length >= 2 &&
-                  <SongCard song={props.tracks[1]}></SongCard>}
+                  <SongCard key ={2} song={props.tracks[1]}></SongCard>}
             </Grid>
           </Grid>
         </Grid>

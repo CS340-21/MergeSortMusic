@@ -153,7 +153,7 @@ export default function SimpleAccordion(props) {
           }
         </AccordionSummary>
         <AccordionDetails>
-          <SortDialog data={data} setData={setData} tracks={tracks} setTracks={setTracks} playList={props.playlist} open={open} onClose={handleClose} />
+          <SortDialog data={data} setData={setData} tracks={tracks} setTracks={setTracks} playList={props.playlist} open={open} onClose={handleClose} selectedValue={"none"}/>
           <Typography>Number of tracks = {props.playlist.tracks_total}</Typography>
         </AccordionDetails>
         {tracks.length !== 0 && tracks.map((track, index) => {

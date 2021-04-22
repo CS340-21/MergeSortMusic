@@ -23,7 +23,6 @@ const useStyles = makeStyles((theme) => ({
 
 const User = (props) => {
   const classes = useStyles();
-  //const [playlistNames, setPlaylistNames] = useState([]);
   const [playlistNames, setPlaylistNames] = useState(props.location.state.playlist);
   //const username = props.location.state.username;
   //const password = props.location.state.password;
@@ -37,7 +36,7 @@ const User = (props) => {
           <div className="saved_playlists">
             <NewPlaylistDialog playlist={playlistNames} setPlaylist={setPlaylistNames} username={username} password={password}></NewPlaylistDialog>
             {playlistNames.map(function(cur_playlist, index){
-                    return <SavedPlaylistsAccordion playlist = {cur_playlist}></SavedPlaylistsAccordion>
+                    return <SavedPlaylistsAccordion key={index} playlist = {cur_playlist}></SavedPlaylistsAccordion>
                   })}
           </div>
         </div>

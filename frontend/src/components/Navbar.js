@@ -1,5 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 
 import {
   AppBar,
@@ -44,6 +45,7 @@ export default function Navbar() {
   const classes = useStyles();
   const [isUserPage, setUserPage] = useState(false);
   const [anchorEl, setAnchorEl] = useState(null);
+  const location = useLocation();
 
   const handleAccountClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -55,6 +57,12 @@ export default function Navbar() {
     setAnchorEl(null);
     setUserPage(false);
   };
+
+  useEffect(() => {
+    if(location['pathname'] === '/user'){
+      setUserPage(true);
+    }
+  }, [location]);
 
   if (!isUserPage) {
     return (

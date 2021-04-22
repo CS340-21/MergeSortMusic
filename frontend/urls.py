@@ -5,5 +5,6 @@ app_name = 'frontend'
 
 urlpatterns = [
     path('', index, name=''),
+    path('user', index),
     path('playlists', index)
 ]

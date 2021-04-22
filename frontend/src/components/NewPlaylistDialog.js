@@ -133,10 +133,10 @@ export default function NewPlaylistDialog(props) {
         <Divider></Divider>
         <Button onClick={() => {authenticateSpotify();}} disabled={spotifyAuthenticated} variant="contained" color="default" startIcon={<ImportExportIcon />}>Link Spotify</Button>
         <List>
-          {spotifyPlaylist.map((playlist) => {
+          {spotifyPlaylist.map((playlist, index) => {
             const labelId = `checkbox-list-label-${playlist.name}`;
             return (
-              <ListItem key={playlist} role={undefined} dense button onClick={null}>
+              <ListItem key={index} role={undefined} dense button onClick={null}>
                 <ListItemIcon>
                   <Checkbox
                     edge="start"
