@@ -6,7 +6,6 @@
 - backend - Branch with most of the backend development by Jonathan.
 - frontend - Branch with most of the frontend development by Shrey and John.
 - sorting - Branch with most of the sorting algorithm development by Georgia.
-- old - Old, backup branch. Ignore.
 
 ## Tech
 
