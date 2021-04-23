@@ -25,6 +25,12 @@ Install django, django-rest-framework, and requests from pip.
 sudo python3 -m pip install django django-rest-framework requests
 ```
 
+Install webpack, webpack-cli, and babel-loader from npm.
+
+```sh
+sudo npm i -g webpack webpack-cli babel-loader
+```
+
 Next, open two terminals. Open the first one in the project root directory, and the second one in the frontend folder.
 
 In the project root directory terminal, run:
