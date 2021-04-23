@@ -5,6 +5,7 @@ import { makeStyles } from "@material-ui/core/styles";
 
 const useStyles = makeStyles((theme) => ({
   main_content_user: {
+    marginTop: 25,
     display: "flex",
     flexDirection: "column",
     justifyContent: "center",
@@ -32,7 +33,6 @@ const User = (props) => {
   return (
     <div>
         <div className={classes.main_content_user}>
-          <h1 className={classes.title}>This is where you take control of your listening.</h1>
           <div className="saved_playlists">
             <NewPlaylistDialog playlist={playlistNames} setPlaylist={setPlaylistNames} username={username} password={password}></NewPlaylistDialog>
             {playlistNames.map(function(cur_playlist, index){
