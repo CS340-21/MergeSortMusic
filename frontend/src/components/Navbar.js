@@ -15,7 +15,6 @@ import { makeStyles } from "@material-ui/core/styles";
 
 import LoginDialog from "./LoginDialog";
 import axios from "axios";
-import GoogleLogin from 'react-google-login';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -100,12 +99,6 @@ export default function Navbar() {
               isUserPage={isUserPage}
               setUserPage={setUserPage}
             ></LoginDialog>
-            <GoogleLogin
-              clientId="851712331566-q3km79mgo7jpkcf7g6unvl33bkg2ndlk.apps.googleusercontent.com"
-              buttonText="LOGIN WITH GOOGLE"
-              onSuccess={responseGoogle}
-              onFailure={responseGoogle}
-            />
           </Toolbar>
         </AppBar>
       </div>
