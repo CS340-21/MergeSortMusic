@@ -1,4 +1,9 @@
 # MergeSortMusic
+
+A web app for sorting your Spotify playlists using the power of merge sort!
+
+You can link your Spotify account to the web app and import playlists from Spotify. Then, using our sorting tool, you will be presented with 2 songs from the playlists, and by using the embedded Spotify player to listen to both songs, you can select which one you prefer. Rinse and repeat till the whole playlist is sorted using our sorting algorithm and your input, at which you can then re-import the playlist back to Spotify for your listening enjoyment!
+
 ## Branches
 
 - main - The final codebase for our project with all of the individual components merged together.
