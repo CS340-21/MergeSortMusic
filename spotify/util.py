@@ -146,7 +146,8 @@ def get_playlist_info(self, playlist_id):
             'track_id': item.get('track').get('id'),
             'track_name': item.get('track').get('name'),
             'image_300': item.get('track').get('album').get('images')[1].get('url'),
-            'sort_order': sort_order
+            'sort_order': sort_order,
+            'track_uri': item.get('track').get('uri').strip('spotify:track:')
         }
         tracks.append(track)
         sort_order = sort_order+1
