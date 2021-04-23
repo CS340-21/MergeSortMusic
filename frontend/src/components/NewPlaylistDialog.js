@@ -129,7 +129,7 @@ export default function NewPlaylistDialog(props) {
   else{
     return (
       <Dialog onClose={handleClose} aria-labelledby="simple-dialog-title" open={open}>
-        <DialogTitle id="simple-dialog-title">Here's where they'd import a playlist from spotify</DialogTitle>
+        <DialogTitle id="simple-dialog-title">Link your Spotify Account or Import a Playlist!</DialogTitle>
         <Divider></Divider>
         <Button onClick={() => {authenticateSpotify();}} disabled={spotifyAuthenticated} variant="contained" color="default" startIcon={<ImportExportIcon />}>Link Spotify</Button>
         <List>
