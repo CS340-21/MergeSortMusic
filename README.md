@@ -1,8 +1,7 @@
 # MergeSortMusic
-## Branches Explanation
+## Branches
 
-- main - Just our initial proposal and this readme.
-- merged - The final codebase for our project with all of the components merged together.
+- main - The final codebase for our project with all of the individual components merged together.
 - backend - Branch with most of the backend development by Jonathan.
 - frontend - Branch with most of the frontend development by Shrey and John.
 - sorting - Branch with most of the sorting algorithm development by Georgia.
@@ -16,12 +15,11 @@ Python packages used in the project:
 
 Node.js packages used in the project:
 
-- Babel - A JavaScript compiler.
-- Material-UI - A popular React UI framework.
-- webpack - A module bundler.
-- clsx - A tiny utility for constructing className strings conditionally.
 - React - A JavaScript library for building user interfaces
 - React Router - A collection of navigational components that compose declaratively with your application.
+- Material-UI - A popular React UI framework.
+- Babel - A JavaScript compiler.
+- webpack - A module bundler.
 
 ## Installation
 
