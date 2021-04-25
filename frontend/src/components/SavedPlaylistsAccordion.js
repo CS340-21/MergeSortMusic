@@ -42,6 +42,8 @@ export default function SimpleAccordion(props) {
 
   const classes = useStyles();
 
+  React.useEffect(() => {}, [JSON.stringify(props)]);
+
   const handleClickOpen = () => {
     const fetchData = async () => {
       var url = 'http://127.0.0.1:8000/api/playlist-info/'

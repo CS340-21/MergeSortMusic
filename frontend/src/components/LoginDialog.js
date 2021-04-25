@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect} from "react";
 import { useHistory } from "react-router-dom";
 import axios from 'axios';
 
@@ -24,6 +24,8 @@ export default function LoginDialog(props) {
   const [password, setPassword] = React.useState("");
   const [playlist, setPlaylist] = React.useState([]);
 
+  useEffect(() => {}, [JSON.stringify(props)]);
+
   let history = useHistory();
   const user = {
     username: username,
@@ -42,10 +44,13 @@ export default function LoginDialog(props) {
     axios.post('http://127.0.0.1:8000/login/', user)
     setOpen(false);
     props.setUserPage(true);
+    props.setSignIn(true)
     //history.push('/user')
-      history.push({
+    props.setUsername(user.username)
+    props.setPassword(user.password)
+    props.setUserPlaylist(user.playlist)
+    history.push({
         pathname: '/user',
-        state: { username: user.username, password: user.password, playlist: user.playlist}
       });
 
   };
@@ -61,13 +66,14 @@ export default function LoginDialog(props) {
       setPlaylist(result[0].playlist)
       setPlaylist(true)
       props.setUserPage(true);
+      props.setSignIn(true);
       user.playlist = result[0].playlist
-
-      //console.log(user.playlist)
-      //console.log(playlist)
+      props.setUsername(user.username)
+      props.setPassword(user.password)
+      props.setUserPlaylist(user.playlist)
+      setTimeout(function(){},2000)
       history.push({
         pathname: '/user',
-        state: { username: user.username, password: user.password, playlist: user.playlist}
       });
     }
   });

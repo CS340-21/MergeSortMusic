@@ -18,9 +18,15 @@ axios.defaults.xsrfCookieName = "csrftoken";
 export default function NewPlaylistDialog(props) {
   const [open, setOpen] = useState(false);
   const [displayModal, setModalDisplay] = useState(false);
+  const [render, setRender] = useState(false)
   const [spotifyAuthenticated, setSpotifyAuthenticated] = useState(false);
   const [spotifyPlaylist, setSpotifyPlaylist] = useState([]);
   const [possibleImportPlaylist, setPossibleImportPlaylist] = useState([]);
+
+  useEffect(() => {}, [JSON.stringify(props)]);
+  useEffect(() => {console.log("possibleImportChanged")}, [possibleImportPlaylist.length]);
+  useEffect(() => {}, [props.isSignedIn]);
+  useEffect(() => {setRender(false);}, [render]);
 
   const authenticateSpotify = () => {
     fetch("http://127.0.0.1:8000/spotify/is-authenticated")
@@ -31,6 +37,7 @@ export default function NewPlaylistDialog(props) {
           fetch("http://127.0.0.1:8000/spotify/get-auth-url")
             .then((response) => response.json())
             .then((data) => {
+              props.setSignIn(false)
               window.location.replace(data.url);
               fetch("/spotify/get-playlists")
                 .then((response) => {
@@ -41,7 +48,6 @@ export default function NewPlaylistDialog(props) {
                 }
                 }).then((data) => {
                   setSpotifyPlaylist(data);
-                  console.log(data);
               });
             });
         }
@@ -84,7 +90,7 @@ export default function NewPlaylistDialog(props) {
       });
     });
     axios.post('http://127.0.0.1:8000/login/', user).then(()=> {
-      props.setPlaylist(user.playlist);
+      props.setUserPlaylist(user.playlist);
     });
 
   }
@@ -97,8 +103,8 @@ export default function NewPlaylistDialog(props) {
     else{
       tempPlaylist.push(playlist);
     }
-    console.log(tempPlaylist)
     setPossibleImportPlaylist(tempPlaylist);
+    setRender(true);
   }
   
   const handleClickOpen = () => {
@@ -118,6 +124,7 @@ export default function NewPlaylistDialog(props) {
           variant="outlined" 
           color="primary" 
           onClick={handleClickOpen}
+          disabled={!props.isSignedIn}
           style={{minWidth: "15%", 
                   margin: "auto",
                   color: "#222326",
@@ -141,7 +148,7 @@ export default function NewPlaylistDialog(props) {
                   <Checkbox
                     edge="start"
                     tabIndex={-1}
-                    checked = {props.playlist.includes(playlist)}
+                    checked = {possibleImportPlaylist.filter(e => e.playlist_id === playlist.playlist_id).length > 0}
                     disableRipple
                     inputProps={{ 'aria-labelledby': labelId }}
                     onClick = {() => {addPossiblePlaylist(playlist);}}

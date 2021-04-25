@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect} from "react";
 import {
   Card,
   CardActionArea,
@@ -44,6 +44,8 @@ const useStyles = makeStyles((theme) => ({
 
 const Main = (props) => {
   const classes = useStyles();
+  useEffect(() => {}, [JSON.stringify(props)]);
+  
   return (
     <div>
       <div className={classes.main_content_header}>

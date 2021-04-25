@@ -43,7 +43,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function Navbar() {
+export default function Navbar(props) {
   const classes = useStyles();
   const [isUserPage, setUserPage] = useState(false);
   const [anchorEl, setAnchorEl] = useState(null);
@@ -58,27 +58,13 @@ export default function Navbar() {
   const handleAccountLogout = () => {
     setAnchorEl(null);
     setUserPage(false);
-  };
-  const googleLogin = async (accesstoken) => {
-    let res = await axios.post(
-      "http://localhost:8000/google/",
-      {
-        access_token: accesstoken,
-      }
-    );
-    console.log(res);
-    return await res.status;
-  };
-  const responseGoogle = async(response) => {
-    let googleResponse  = await googleLogin(response.accessToken)
-    console.log(googleResponse);
-    console.log(response);
+    props.setSignIn(false)
+    props.setUserPlaylist([])
+    props.setUsername("")
+    props.setPassword("")
   };
 
   useEffect(() => {
-    if(location['pathname'] === '/user'){
-      setUserPage(true);
-    }
   }, [location]);
 
   if (!isUserPage) {
@@ -98,6 +84,7 @@ export default function Navbar() {
             <LoginDialog
               isUserPage={isUserPage}
               setUserPage={setUserPage}
+              {...props}
             ></LoginDialog>
           </Toolbar>
         </AppBar>
@@ -134,7 +121,7 @@ export default function Navbar() {
             >
               <MenuItem
                 component={Link}
-                to="/account"
+                to="/user"
                 onClick={handleMenuClose}
               >
                 My account

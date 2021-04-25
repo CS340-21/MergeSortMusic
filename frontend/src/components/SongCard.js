@@ -48,7 +48,7 @@ export default function SongCard(props) {
         </CardContent>
       </CardActionArea>
       <CardActions>
-        <iframe src={song.track_uri} display="none" width="300" height="75" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>
+        <iframe src={song.track_uri} display="none" width="300" height="75" frameBorder="0" allowtransparency="true" allow="encrypted-media"></iframe>
       </CardActions>
     </Card>
   );
